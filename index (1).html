@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Pro Cost · Fooda Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   COLOR PSYCHOLOGY PALETTE
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  /* Base */
+  --bg:          #0B0B0D;
+  --bg2:         #111115;
+  --card:        #16161A;
+  --card2:       #1E1E24;
+  --border:      #252530;
+  --border2:     #32323F;
+  --text:        #F0F0F5;
+  --text2:       #80808A;
+  --text3:       #3E3E4A;
+
+  /* Estimated Daily Cost → amber/orange */
+  --amber:       #FF8A00;
+  --amber-dim:   #7A4200;
+  --amber-bg:    rgba(255,138,0,.08);
+  --amber-glow:  rgba(255,138,0,.22);
+
+  /* Client Price / Profit → green */
+  --green:       #00D26A;
+  --green-dim:   #005A2E;
+  --green-bg:    rgba(0,210,106,.08);
+  --green-glow:  rgba(0,210,106,.20);
+
+  /* Profit margin % → neon emerald */
+  --emerald:     #00FF88;
+  --emerald-bg:  rgba(0,255,136,.07);
+
+  /* Selected Gear → electric red */
+  --red:         #FF3B3B;
+  --red-dim:     #7A1010;
+  --red-bg:      rgba(255,59,59,.08);
+  --red-glow:    rgba(255,59,59,.22);
+
+  /* My Gear / Personal → teal-green */
+  --teal:        #00C98D;
+  --teal-dim:    #006644;
+  --teal-bg:     rgba(0,201,141,.08);
+  --teal-glow:   rgba(0,201,141,.20);
+
+  /* Camera → deep red gradient */
+  --cam-a:       #C1121F;
+  --cam-b:       #FF4D4D;
+  --cam-glow:    rgba(255,77,77,.20);
+
+  /* Lenses → purple */
+  --lens:        #7A5CFF;
+  --lens-dim:    #3A2A80;
+  --lens-bg:     rgba(122,92,255,.08);
+  --lens-glow:   rgba(122,92,255,.20);
+
+  /* Lighting → warm yellow/gold */
+  --light:       #FFC857;
+  --light-dim:   #7A5A00;
+  --light-bg:    rgba(255,200,87,.08);
+  --light-glow:  rgba(255,200,87,.20);
+
+  /* Grip → blue-gray */
+  --grip:        #5E81AC;
+  --grip-dim:    #2A3A50;
+  --grip-bg:     rgba(94,129,172,.08);
+  --grip-glow:   rgba(94,129,172,.20);
+
+  /* Full Crew → cool blue */
+  --crew-full:   #4DA8FF;
+  --crew-full-bg:rgba(77,168,255,.08);
+
+  /* One Man → orange/red */
+  --crew-one:    #FF6B35;
+  --crew-one-bg: rgba(255,107,53,.08);
+
+  /* CTA */
+  --cta:         #FF1F1F;
+  --cta-glow:    rgba(255,31,31,.40);
+
+  --r:           14px;
+  --rs:          10px;
+  --ff:          'Rajdhani', sans-serif;
+  --fd:          'Bebas Neue', cursive;
+  --bottom-h:    64px;
+}
+[data-lang=ar]{--ff:'Cairo',sans-serif;direction:rtl;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{height:100%;background:#000;}
+body{background:var(--bg);color:var(--text);font-family:var(--ff);font-size:14px;min-height:100vh;max-width:430px;margin:0 auto;position:relative;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(255,59,59,.06) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 90% 90%,rgba(77,168,255,.04) 0%,transparent 60%);pointer-events:none;z-index:0;}
+
+.screen{display:none;flex-direction:column;min-height:100vh;padding-bottom:var(--bottom-h);position:relative;z-index:1;}
+.screen.active{display:flex;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.screen.active>*{animation:fadeUp .22s ease forwards;}
+
+/* ─── TOPBAR ─── */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px;position:sticky;top:0;z-index:50;background:linear-gradient(to bottom,var(--bg) 70%,transparent);}
+.logo-wrap{display:flex;align-items:center;gap:8px;}
+.logo-icon{color:var(--cta);font-size:22px;filter:drop-shadow(0 0 8px var(--cta-glow));}
+.logo-main{font-family:var(--fd);font-size:18px;letter-spacing:1.5px;line-height:1.1;}
+.logo-sub{font-size:8px;color:var(--amber);letter-spacing:2.5px;font-weight:600;}
+.topbar-right{display:flex;align-items:center;gap:7px;}
+.topbar-right select{background:var(--card2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:11px;font-family:var(--ff);padding:5px 8px;cursor:pointer;}
+.topbar-right select:focus{outline:none;border-color:var(--amber);}
+.lang-btn{background:var(--card2);border:1px solid var(--border2);border-radius:20px;color:var(--text2);font-size:11px;padding:5px 10px;cursor:pointer;font-family:var(--ff);transition:all .2s;}
+.lang-btn:hover{border-color:var(--amber);color:var(--amber);}
+.back-btn{width:34px;height:34px;background:var(--card2);border:1px solid var(--border2);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);font-size:18px;transition:all .2s;}
+.back-btn:hover{border-color:var(--red);color:var(--red);}
+.screen-title{font-family:var(--fd);font-size:19px;letter-spacing:2px;color:var(--text);}
+
+/* ─── MODE TOGGLE ─── */
+.mode-toggle{display:flex;gap:8px;padding:4px 16px 10px;}
+.mode-btn{flex:1;padding:11px 8px;border-radius:var(--rs);border:1px solid var(--border2);background:var(--card2);color:var(--text2);font-family:var(--ff);font-size:13px;font-weight:600;cursor:pointer;text-align:center;transition:all .25s;letter-spacing:.4px;}
+.mode-btn .mi{display:block;font-size:19px;margin-bottom:3px;}
+.mode-btn.one.active{border-color:var(--crew-one);background:var(--crew-one-bg);color:var(--crew-one);box-shadow:0 0 14px rgba(255,107,53,.15);}
+.mode-btn.full.active{border-color:var(--crew-full);background:var(--crew-full-bg);color:var(--crew-full);box-shadow:0 0 14px rgba(77,168,255,.15);}
+
+/* ─── HERO COST CARD (amber) ─── */
+.hero-cost-wrap{padding:6px 14px 12px;}
+.hero-cost-card{width:100%;background:linear-gradient(135deg,#120C00 0%,#1A1000 60%,#120800 100%);border:1px solid var(--amber-dim);border-radius:18px;padding:20px 18px 16px;position:relative;overflow:hidden;box-shadow:0 6px 28px var(--amber-glow),inset 0 1px 0 rgba(255,255,255,.03);}
+.hero-cost-card::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,138,0,.18) 0%,transparent 70%);pointer-events:none;}
+.hero-cost-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--amber),transparent);}
+.hero-label{font-size:9px;color:var(--text2);letter-spacing:2.5px;text-transform:uppercase;font-weight:600;margin-bottom:5px;}
+.hero-amount{font-family:var(--fd);font-size:50px;letter-spacing:2px;line-height:1;color:var(--text);margin-bottom:1px;}
+.hero-currency{font-size:12px;color:var(--amber);letter-spacing:2px;font-weight:700;margin-bottom:12px;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;}
+.hero-pill{display:flex;align-items:center;gap:5px;border:1px solid var(--border2);border-radius:20px;padding:4px 9px;background:rgba(255,255,255,.03);transition:all .2s;}
+.hero-pill .hp-icon{font-size:11px;}
+.hero-pill .hp-label{font-size:9px;color:var(--text2);font-weight:500;}
+.hero-pill .hp-val{font-size:10px;color:var(--text3);font-weight:700;font-family:var(--fd);letter-spacing:.5px;}
+.hero-pill.cam-active{border-color:var(--cam-a);background:rgba(193,18,31,.1);}
+.hero-pill.cam-active .hp-val{color:var(--cam-b);}
+.hero-pill.lens-active{border-color:var(--lens-dim);background:var(--lens-bg);}
+.hero-pill.lens-active .hp-val{color:var(--lens);}
+.hero-pill.light-active{border-color:var(--light-dim);background:var(--light-bg);}
+.hero-pill.light-active .hp-val{color:var(--light);}
+.hero-pill.grip-active{border-color:var(--grip-dim);background:var(--grip-bg);}
+.hero-pill.grip-active .hp-val{color:var(--grip);}
+.hero-divider{height:1px;background:var(--border);margin-bottom:12px;}
+.hero-bottom-row{display:flex;align-items:flex-end;justify-content:space-between;}
+.hero-margin-side .hero-margin-label{font-size:9px;color:var(--text3);letter-spacing:1.5px;font-weight:600;margin-bottom:3px;}
+.hero-margin-side .hero-margin-pct{font-family:var(--fd);font-size:22px;color:var(--emerald);filter:drop-shadow(0 0 6px rgba(0,255,136,.3));}
+.hero-price-side{text-align:right;}
+.hero-price-side .hp-label2{font-size:9px;color:var(--text3);letter-spacing:1.5px;font-weight:600;margin-bottom:3px;}
+.hero-price-side .hp-client{font-family:var(--fd);font-size:24px;color:var(--green);filter:drop-shadow(0 0 8px var(--green-glow));}
+
+/* ─── MY GEAR QUICK CARD (teal) ─── */
+.mygear-quick-card{margin:0 14px 10px;background:linear-gradient(135deg,#001A12 0%,#002518 100%);border:1px solid var(--teal-dim);border-radius:var(--r);padding:13px 14px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .2s;box-shadow:0 4px 16px var(--teal-glow);}
+.mygear-quick-card:hover{border-color:var(--teal);box-shadow:0 6px 22px var(--teal-glow);}
+.mygear-quick-icon{font-size:26px;flex-shrink:0;filter:drop-shadow(0 0 6px var(--teal-glow));}
+.mygear-quick-info{flex:1;}
+.mygear-quick-title{font-size:13px;font-weight:700;color:var(--teal);letter-spacing:.8px;}
+.mygear-quick-sub{font-size:10px;color:var(--teal-dim);margin-top:2px;color:#3a8a6a;}
+.mygear-quick-badge{background:rgba(0,201,141,.12);border:1px solid var(--teal-dim);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--teal);font-weight:700;letter-spacing:.5px;}
+
+/* ─── CAT GRID ─── */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0 14px 8px;}
+.cat-card{border-radius:var(--r);padding:13px 11px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:5px;position:relative;overflow:hidden;border:1px solid var(--border);}
+.cat-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%;opacity:0;transition:opacity .2s;}
+.cat-card:hover::before,.cat-card.has-items::before{opacity:1;}
+/* UPDATE 4: dim cards with no items */
+.cat-card:not(.has-items){opacity:0.45;filter:saturate(0.3);}
+.cat-card:not(.has-items):hover{opacity:0.65;filter:saturate(0.6);}
+.cat-card.has-items{opacity:1!important;filter:none!important;}
+/* camera card */
+.cat-card.cat-cameras{background:linear-gradient(135deg,#140408 0%,#1A0508 100%);}
+.cat-card.cat-cameras::before{background:radial-gradient(circle,var(--cam-glow),transparent 70%);}
+.cat-card.cat-cameras.has-items{border-color:var(--cam-a);box-shadow:0 4px 16px var(--cam-glow);}
+.cat-card.cat-cameras .cat-icon{filter:drop-shadow(0 0 6px var(--cam-glow));}
+.cat-card.cat-cameras .cat-cost{color:var(--cam-b);}
+/* lenses card */
+.cat-card.cat-lenses{background:linear-gradient(135deg,#0E0A1E 0%,#140E26 100%);}
+.cat-card.cat-lenses::before{background:radial-gradient(circle,var(--lens-glow),transparent 70%);}
+.cat-card.cat-lenses.has-items{border-color:var(--lens-dim);box-shadow:0 4px 16px var(--lens-glow);}
+.cat-card.cat-lenses .cat-icon{filter:drop-shadow(0 0 6px var(--lens-glow));}
+.cat-card.cat-lenses .cat-cost{color:var(--lens);}
+/* lighting card */
+.cat-card.cat-lighting{background:linear-gradient(135deg,#161000 0%,#1E1600 100%);}
+.cat-card.cat-lighting::before{background:radial-gradient(circle,var(--light-glow),transparent 70%);}
+.cat-card.cat-lighting.has-items{border-color:var(--light-dim);box-shadow:0 4px 16px var(--light-glow);}
+.cat-card.cat-lighting .cat-icon{filter:drop-shadow(0 0 6px var(--light-glow));}
+.cat-card.cat-lighting .cat-cost{color:var(--light);}
+/* accessories card */
+.cat-card.cat-accessories{background:linear-gradient(135deg,#080E14 0%,#0C1218 100%);}
+.cat-card.cat-accessories::before{background:radial-gradient(circle,var(--grip-glow),transparent 70%);}
+.cat-card.cat-accessories.has-items{border-color:var(--grip-dim);box-shadow:0 4px 16px var(--grip-glow);}
+.cat-card.cat-accessories .cat-icon{filter:drop-shadow(0 0 6px var(--grip-glow));}
+.cat-card.cat-accessories .cat-cost{color:var(--grip);}
+.cat-card-top{display:flex;align-items:center;justify-content:space-between;}
+.cat-icon{font-size:26px;}
+.cat-arrow{color:var(--text3);font-size:14px;}
+.cat-name{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--text);text-transform:uppercase;}
+.cat-cost{font-size:13px;font-weight:700;font-family:var(--fd);letter-spacing:1px;}
+.cat-cost.zero{color:var(--text3);font-family:var(--ff);font-size:10px;font-weight:400;}
+
+/* ─── START BUTTON (CTA) ─── */
+.start-btn-wrap{padding:0 14px 8px;}
+.start-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--cta) 0%,#AA0000 100%);border:none;border-radius:var(--r);color:#fff;font-family:var(--fd);font-size:19px;letter-spacing:3px;cursor:pointer;transition:all .2s;box-shadow:0 4px 22px var(--cta-glow);display:flex;align-items:center;justify-content:center;gap:10px;}
+.start-btn:hover{box-shadow:0 6px 32px var(--cta-glow);transform:translateY(-1px);}
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;height:var(--bottom-h);background:rgba(11,11,13,.96);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;z-index:100;}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:8px 16px;border-radius:var(--rs);transition:all .2s;flex:1;}
+.nav-icon{font-size:19px;color:var(--text3);transition:all .2s;}
+.nav-label{font-size:8px;color:var(--text3);font-weight:600;letter-spacing:.5px;text-transform:uppercase;transition:all .2s;}
+.nav-item.active .nav-icon{color:var(--amber);filter:drop-shadow(0 0 6px var(--amber-glow));}
+.nav-item.active .nav-label{color:var(--amber);}
+
+/* ─── GEAR SCREEN ─── */
+.brand-list{flex:1;overflow-y:auto;padding:0 14px;}
+.brand-section{margin-bottom:8px;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
+.brand-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;cursor:pointer;background:var(--card2);transition:background .15s;user-select:none;}
+.brand-hdr:hover{background:#222228;}
+.brand-hdr-l{display:flex;align-items:center;gap:10px;}
+.brand-logo{width:30px;height:30px;border-radius:6px;object-fit:contain;background:#fff;padding:2px;flex-shrink:0;}
+.brand-logo-fb{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;}
+.brand-name{font-size:13px;font-weight:700;letter-spacing:.4px;}
+.brand-cnt{font-size:10px;color:var(--text3);}
+.brand-arr{color:var(--text3);font-size:11px;transition:transform .2s;}
+.brand-arr.open{transform:rotate(180deg);}
+.brand-body{display:none;padding:10px;background:var(--card);border-top:1px solid var(--border);}
+.brand-body.open{display:block;}
+.gear-list-items{display:flex;flex-direction:column;gap:7px;}
+.cat-indicator-row{display:flex;align-items:center;justify-content:space-between;padding:8px 14px 4px;}
+.cat-ind-total{font-family:var(--fd);font-size:20px;}
+.cat-ind-label{font-size:9px;color:var(--text2);letter-spacing:1.2px;font-weight:600;}
+
+/* GEAR ROW */
+.gear-row{background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);padding:11px 13px;display:flex;align-items:center;gap:11px;transition:all .2s;}
+.gear-row.selected{border-color:var(--red-dim);background:var(--red-bg);}
+.gear-row-info{flex:1;min-width:0;cursor:pointer;}
+.gear-row-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.gear-row-price{font-size:10px;color:var(--text3);}
+.gear-row-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+.toggle{position:relative;width:42px;height:22px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;inset:0;background:#2A2A32;border-radius:11px;cursor:pointer;transition:.3s;}
+.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:#555;border-radius:50%;transition:.3s;}
+.toggle input:checked+.toggle-slider{background:var(--red);}
+.toggle input:checked+.toggle-slider::before{transform:translateX(20px);background:#fff;box-shadow:0 0 6px rgba(255,59,59,.6);}
+.gear-daily-input{background:rgba(0,0,0,.5);border:1px solid var(--red-dim);border-radius:5px;padding:3px 7px;color:var(--red);font-size:10px;font-family:var(--ff);font-weight:600;width:76px;text-align:right;}
+[data-lang=ar] .gear-daily-input{text-align:left;}
+.gear-daily-input:focus{outline:none;border-color:var(--red);}
+
+/* ─── FORMS ─── */
+.scroll-area{flex:1;overflow-y:auto;padding:0 14px 20px;}
+.section-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:11px;}
+.section-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+.st-amber{color:var(--amber);}
+.st-green{color:var(--green);}
+.st-red{color:var(--red);}
+.st-teal{color:var(--teal);}
+.st-crew{color:var(--crew-full);}
+.st-lens{color:var(--lens);}
+.st-light{color:var(--light);}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.fg{display:flex;flex-direction:column;gap:4px;}
+.fl{font-size:9px;color:var(--text2);font-weight:600;letter-spacing:.8px;text-transform:uppercase;}
+.fi{background:var(--card2);border:1px solid var(--border2);border-radius:var(--rs);padding:9px 11px;color:var(--text);font-size:13px;font-family:var(--ff);font-weight:500;width:100%;transition:border .15s;}
+.fi:focus{outline:none;border-color:var(--amber);}
+.fi::placeholder{color:var(--text3);}
+.fsel{background:var(--card2);border:1px solid var(--border2);border-radius:var(--rs);padding:9px 11px;color:var(--text);font-size:13px;font-family:var(--ff);width:100%;cursor:pointer;}
+.fsel:focus{outline:none;border-color:var(--amber);}
+.pfx-w{position:relative;}
+.pfx{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:10px;pointer-events:none;}
+[data-lang=ar] .pfx{left:auto;right:10px;}
+.pfx-w .fi{padding-left:26px;}
+[data-lang=ar] .pfx-w .fi{padding-left:11px;padding-right:26px;}
+
+/* SLIDER — emerald */
+.slider-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.slider-val{font-family:var(--fd);font-size:26px;color:var(--emerald);filter:drop-shadow(0 0 8px rgba(0,255,136,.3));}
+input[type=range]{-webkit-appearance:none;width:100%;height:3px;border-radius:2px;background:var(--border2);outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--emerald);cursor:pointer;border:3px solid var(--bg);box-shadow:0 0 8px rgba(0,255,136,.5);}
+
+/* MINI RESULTS */
+.mini-res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:11px;}
+.mini-res{background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);padding:11px 8px;text-align:center;}
+.mini-res.amber-card{border-color:var(--amber-dim);background:var(--amber-bg);}
+.mini-res.green-card{border-color:var(--green-dim);background:var(--green-bg);box-shadow:0 0 12px var(--green-glow);}
+.mini-lbl{font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;font-weight:600;margin-bottom:4px;}
+.mini-val{font-family:var(--fd);font-size:15px;color:var(--text);}
+.mini-res.amber-card .mini-val{color:var(--amber);}
+.mini-res.green-card .mini-val{color:var(--green);}
+
+/* CREW */
+.crew-row{background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);padding:11px;margin-bottom:7px;}
+.crew-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
+.crew-lbl{font-size:13px;font-weight:600;}
+.cnt-ctrl{display:flex;align-items:center;gap:8px;}
+.cnt-btn{width:24px;height:24px;background:var(--card);border:1px solid var(--border2);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);font-size:15px;transition:all .15s;user-select:none;}
+.cnt-btn:hover{border-color:var(--crew-full);color:var(--crew-full);}
+.cnt-num{font-size:14px;font-weight:700;color:var(--text);min-width:16px;text-align:center;}
+.add-member-zone{background:linear-gradient(135deg,#080A18 0%,#0C0E20 100%);border:1px dashed #2A2A50;border-radius:var(--rs);padding:13px;margin-top:11px;}
+.add-member-title{font-family:var(--fd);font-size:15px;letter-spacing:2px;color:var(--crew-full);margin-bottom:11px;display:flex;align-items:center;gap:7px;}
+.custom-crew-item{display:flex;align-items:center;gap:9px;padding:9px 11px;background:rgba(77,168,255,.04);border:1px solid rgba(77,168,255,.15);border-radius:var(--rs);margin-bottom:6px;}
+
+/* VIDEO */
+.vpkg{background:var(--card2);border:1px solid var(--border);border-radius:var(--rs);padding:12px;margin-bottom:9px;}
+.vpkg-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.vpkg-name{font-size:13px;font-weight:600;}
+.icon-btn{background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;}
+.icon-btn:hover{color:var(--red);}
+.add-btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:11px;border:1px dashed var(--border2);border-radius:var(--rs);color:var(--text3);font-size:12px;cursor:pointer;background:none;width:100%;font-family:var(--ff);font-weight:600;letter-spacing:.8px;transition:all .15s;}
+.add-btn:hover{border-color:var(--amber);color:var(--amber);}
+
+/* BREAKDOWN */
+.breakdown-list{flex:1;overflow-y:auto;padding:0 14px;}
+.bk-item{display:flex;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid var(--border);}
+.bk-icon{width:38px;height:38px;background:var(--card2);border:1px solid var(--border2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.bk-info{flex:1;}
+.bk-name{font-size:13px;font-weight:600;color:var(--text);}
+.bk-sub{font-size:10px;color:var(--text3);}
+.bk-cost{font-size:15px;font-weight:700;color:var(--red);font-family:var(--fd);letter-spacing:.5px;}
+.budget-bar-wrap{padding:13px 14px;border-top:1px solid var(--border);background:var(--bg2);}
+.budget-bar-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:8px;}
+.budget-total{font-family:var(--fd);font-size:32px;color:var(--green);letter-spacing:1px;filter:drop-shadow(0 0 8px var(--green-glow));}
+.budget-label{font-size:9px;color:var(--text2);letter-spacing:1px;font-weight:600;}
+.prog-bar{height:3px;background:var(--card2);border-radius:2px;overflow:hidden;margin-bottom:3px;}
+.prog-fill{height:100%;background:linear-gradient(to right,var(--amber),var(--green));border-radius:2px;transition:width .5s ease;}
+
+/* UPDATE 3: EXPORT BUTTONS */
+.export-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 14px 0;}
+.exp-btn{padding:13px 10px;border-radius:var(--rs);font-family:var(--ff);font-size:11px;font-weight:700;letter-spacing:.8px;cursor:pointer;text-align:center;transition:all .2s;line-height:1.3;}
+.exp-btn-profit{background:linear-gradient(135deg,#003820 0%,#004A28 100%);border:1px solid var(--green-dim);color:var(--green);box-shadow:0 4px 14px var(--green-glow);}
+.exp-btn-profit:hover{box-shadow:0 6px 22px var(--green-glow);}
+.exp-btn-cost{background:var(--card2);border:1px solid var(--border2);color:var(--text2);}
+.exp-btn-cost:hover{border-color:var(--amber);color:var(--amber);}
+.exp-btn-icon{font-size:17px;display:block;margin-bottom:4px;}
+.action-btn{width:calc(100% - 28px);margin:8px 14px;padding:14px;background:linear-gradient(135deg,var(--cta) 0%,#AA0000 100%);border:none;border-radius:var(--r);color:#fff;font-family:var(--fd);font-size:17px;letter-spacing:2px;cursor:pointer;box-shadow:0 4px 18px var(--cta-glow);display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;}
+.action-btn:hover{box-shadow:0 6px 26px var(--cta-glow);}
+
+/* SUMMARY */
+.donut-wrap{display:flex;align-items:center;justify-content:center;padding:10px 0 14px;}
+.donut-svg{width:200px;height:200px;}
+.summary-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;padding:0 14px 12px;}
+.sum-cat{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:11px;text-align:center;}
+.sum-cat-icon{font-size:19px;margin-bottom:4px;}
+.sum-cat-name{font-size:8px;color:var(--text2);letter-spacing:1px;font-weight:600;text-transform:uppercase;margin-bottom:3px;}
+.sum-cat-val{font-family:var(--fd);font-size:15px;color:var(--green);}
+.share-btn{margin:0 14px 9px;width:calc(100% - 28px);padding:15px;background:linear-gradient(135deg,#003820 0%,#005A30 100%);border:1px solid var(--green-dim);border-radius:var(--r);color:var(--green);font-family:var(--fd);font-size:17px;letter-spacing:2px;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px var(--green-glow);display:flex;align-items:center;justify-content:center;gap:8px;}
+.view-detail-btn{margin:0 14px;width:calc(100% - 28px);padding:12px;background:transparent;border:none;color:var(--text2);font-family:var(--ff);font-size:11px;font-weight:600;letter-spacing:1.5px;cursor:pointer;text-transform:uppercase;}
+
+/* MY GEAR PAGE */
+.mg-row{background:var(--card2);border:1px solid var(--teal-dim);border-radius:var(--rs);padding:12px;display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.mg-name{font-size:12px;font-weight:600;color:var(--teal);}
+.mg-det{font-size:10px;color:var(--text3);margin-top:2px;}
+.mg-price{font-size:13px;color:var(--amber);font-weight:700;white-space:nowrap;font-family:var(--fd);}
+/* UPDATE 1: editable rate in my gear */
+.mg-rate-edit{background:rgba(0,0,0,.4);border:1px solid var(--amber-dim);border-radius:6px;padding:4px 8px;color:var(--amber);font-size:11px;font-family:var(--ff);font-weight:600;width:80px;text-align:center;margin-top:4px;}
+.mg-rate-edit:focus{outline:none;border-color:var(--amber);}
+
+/* HISTORY */
+.hist-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.hn{font-size:14px;font-weight:600;}
+.hd{font-size:10px;color:var(--text3);margin-top:1px;}
+.hp-hist{font-family:var(--fd);font-size:17px;color:var(--green);}
+.pill{font-size:8px;border-radius:20px;padding:2px 7px;font-weight:700;display:inline-block;margin-top:3px;}
+.pill-one{background:var(--crew-one-bg);color:var(--crew-one);border:1px solid rgba(255,107,53,.3);}
+.pill-full{background:var(--crew-full-bg);color:var(--crew-full);border:1px solid rgba(77,168,255,.3);}
+.empty-s{text-align:center;padding:50px 20px;}
+.empty-icon{font-size:42px;opacity:.2;margin-bottom:9px;}
+.empty-txt{font-size:12px;color:var(--text3);}
+
+/* NOTIF */
+.notif{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--green);color:#000;padding:9px 18px;border-radius:var(--rs);font-size:13px;font-weight:700;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap;}
+.notif.show{opacity:1;transform:translateX(-50%) translateY(0);}
+::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HOME ══════════ -->
+<div class="screen active" id="scr-home">
+  <div class="topbar">
+    <div class="logo-wrap">
+      <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCANgA+cDASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAcIBgkDBAUBAv/EAF8QAQABAwIDAgcJCwYJCQYHAAABAgMEBREGBxIIIRMiMUFRYdIJFxhWgZGUlaEUFSMyOHFysbTB00JSVVej0SQ1N2J0doKTshYzR4SForPCxCUnQ2WSwzQ2Y3Ok8PH/xAAcAQEAAgMBAQEAAAAAAAAAAAAABQYDBAcCCAH/xAA3EQEAAQMCAwUFBgUFAAAAAAAAAQIDBAURBjFBEiFRYYETcZGhsQcUIjPB0SMyUmLwNDVygrL/2gAMAwEAAhEDEQA/AKZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//Z" alt="Pro Cost" style="height:36px;width:auto;object-fit:contain;filter:drop-shadow(0 0 6px rgba(255,59,59,.4));" />
+      <div style="display:flex;flex-direction:column;line-height:1.15;">
+        <span style="font-family:var(--fd);font-size:16px;letter-spacing:1.5px;color:var(--text);">PRO COST</span>
+        <span style="font-size:8px;color:var(--amber);letter-spacing:2px;font-weight:600;">BY FOODA ACADEMY</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <select id="curSel" onchange="setCurrency(this.value)">
+        <option value="EGP">EGP ج.م</option>
+        <option value="USD">USD $</option>
+        <option value="SAR">SAR ر.س</option>
+        <option value="AED">AED د.إ</option>
+      </select>
+      <button class="lang-btn" onclick="toggleLang()" id="langBtn">عربي</button>
+    </div>
+  </div>
+  <div class="mode-toggle">
+    <div class="mode-btn one active" id="btnOne" onclick="setMode('one')"><span class="mi">🧍</span><span data-en="One Man Crew" data-ar="منفرد">One Man Crew</span></div>
+    <div class="mode-btn full" id="btnFull" onclick="setMode('full')"><span class="mi">👥</span><span data-en="Full Crew" data-ar="فريق كامل">Full Crew</span></div>
+  </div>
+  <!-- Project Name Input -->
+  <div style="margin:0 14px 8px;">
+    <div style="font-size:9px;color:var(--amber);font-weight:700;letter-spacing:2px;margin-bottom:5px;" data-en="PROJECT NAME" data-ar="اسم المشروع">PROJECT NAME</div>
+    <input id="homeProjectName" class="fi" type="text" placeholder="e.g. Nike Campaign..."
+      style="background:#1E1E24;border:1.5px solid var(--amber);border-radius:10px;padding:11px 14px;font-size:14px;width:100%;color:var(--text);font-family:var(--ff);"
+      oninput="syncProjectName(this.value)" onfocus="this.style.borderColor='var(--amber)'" />
+  </div>
+
+  <div class="hero-cost-wrap">
+    <div class="hero-cost-card">
+      <div class="hero-label" data-en="ESTIMATED DAILY COST" data-ar="التكلفة اليومية المقدرة">ESTIMATED DAILY COST</div>
+      <div class="hero-amount" id="heroAmount">0</div>
+      <div class="hero-currency" id="heroCurrency">ج.م</div>
+      <div class="hero-pills">
+        <div class="hero-pill" id="pill-cameras"><span class="hp-icon">📷</span><span class="hp-label">CAM</span><span class="hp-val" id="hp-cameras">—</span></div>
+        <div class="hero-pill" id="pill-lenses"><span class="hp-icon">🔭</span><span class="hp-label">LENS</span><span class="hp-val" id="hp-lenses">—</span></div>
+        <div class="hero-pill" id="pill-lighting"><span class="hp-icon">💡</span><span class="hp-label">LIGHT</span><span class="hp-val" id="hp-lighting">—</span></div>
+        <div class="hero-pill" id="pill-accessories"><span class="hp-icon">🎒</span><span class="hp-label">GRIP</span><span class="hp-val" id="hp-accessories">—</span></div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-bottom-row">
+        <div class="hero-margin-side"><div class="hero-margin-label" data-en="PROFIT MARGIN" data-ar="هامش الربح">PROFIT MARGIN</div><div class="hero-margin-pct" id="heroMarginPct">30%</div></div>
+        <div class="hero-price-side"><div class="hp-label2" data-en="CLIENT PRICE" data-ar="سعر العميل">CLIENT PRICE</div><div class="hp-client" id="heroClientPrice">0</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- UPDATE 3: My Gear selectable panel on home -->
+  <div id="homeMyGearPanel" style="margin:0 14px 10px;background:linear-gradient(135deg,#001A12 0%,#002518 100%);border:1px solid var(--teal-dim);border-radius:var(--r);padding:13px 14px;box-shadow:0 4px 16px var(--teal-glow);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:20px;filter:drop-shadow(0 0 6px var(--teal-glow));">&#11088;</span>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.8px;" data-en="MY GEAR" data-ar="معداتي">MY GEAR</div>
+          <div style="font-size:9px;color:#3a8a6a;" id="homeGearSubtitle">Select items to include in cost</div>
+        </div>
+      </div>
+      <button onclick="showTab('settings')" style="background:var(--teal-bg);border:1px solid var(--teal-dim);border-radius:20px;color:var(--teal);font-size:10px;font-family:var(--ff);font-weight:700;padding:4px 10px;cursor:pointer;letter-spacing:.5px;">+ ADD</button>
+    </div>
+    <div id="homeMyGearItems" style="display:flex;flex-direction:column;gap:6px;">
+      <div style="font-size:11px;color:var(--text3);text-align:center;padding:8px 0;" id="homeGearEmpty">No saved gear yet — tap ADD to get started</div>
+    </div>
+  </div>
+  <div class="cat-grid" id="catGrid"></div>
+  <div class="start-btn-wrap">
+    <button class="start-btn" onclick="goTo('scr-estimate')"><span data-en="START NEW CALCULATION" data-ar="بدء حساب جديد">START NEW CALCULATION</span> 🎬</button>
+  </div>
+</div>
+
+<!-- ══════════ ESTIMATE ══════════ -->
+<div class="screen" id="scr-estimate">
+  <div class="topbar">
+    <div class="back-btn" onclick="goTo('scr-home')">‹</div>
+    <div class="screen-title" data-en="PRODUCTION SETUP" data-ar="إعدادات الجلسة">PRODUCTION SETUP</div>
+    <div style="width:34px;"></div>
+  </div>
+  <div class="scroll-area">
+    <div class="section-card">
+      <div class="section-title st-amber">📋 <span data-en="Project Info" data-ar="معلومات المشروع">Project Info</span></div>
+      <div class="fg2">
+        <div class="fg" style="grid-column:1/-1"><label class="fl" data-en="Project Name" data-ar="اسم المشروع">Project Name</label><input class="fi" id="projectName" type="text" placeholder="e.g. Nike Campaign"/></div>
+        <div class="fg"><label class="fl" data-en="Shoot Hours" data-ar="ساعات التصوير">Shoot Hours</label><input class="fi" id="shootHours" type="number" min="1" value="8" oninput="calculate()"/></div>
+        <div class="fg"><label class="fl" data-en="Photographer Fee" data-ar="أجر المصور">Photographer Fee</label><div class="pfx-w"><span class="pfx" id="pfx3"></span><input class="fi" id="dayRate" type="number" min="0" value="0" oninput="calculate()"/></div></div>
+        <div class="fg"><label class="fl" data-en="Location / Studio" data-ar="إيجار الموقع">Location / Studio</label><div class="pfx-w"><span class="pfx" id="pfx1"></span><input class="fi" id="locationCost" type="number" min="0" value="0" oninput="calculate()"/></div></div>
+        <div class="fg"><label class="fl" data-en="Transportation" data-ar="الانتقالات">Transportation</label><div class="pfx-w"><span class="pfx" id="pfx2"></span><input class="fi" id="transportCost" type="number" min="0" value="0" oninput="calculate()"/></div></div>
+        <div class="fg"><label class="fl" data-en="Other Expenses" data-ar="مصاريف أخرى">Other Expenses</label><div class="pfx-w"><span class="pfx" id="pfx4"></span><input class="fi" id="otherCost" type="number" min="0" value="0" oninput="calculate()"/></div></div>
+      </div>
+    </div>
+    <div class="section-card">
+      <div class="section-title st-lens">📈 <span data-en="Profit Margin" data-ar="هامش الربح">Profit Margin</span></div>
+      <div class="slider-row">
+        <span style="font-size:11px;color:var(--text2);" data-en="Drag or type (0–1000%)" data-ar="اسحب أو اكتب (0–1000%)">Drag or type (0–1000%)</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <input type="number" id="marginInput" min="0" max="1000" step="1" value="30"
+            style="background:rgba(0,0,0,.5);border:1px solid var(--emerald);border-radius:8px;padding:4px 8px;color:var(--emerald);font-family:var(--fd);font-size:22px;width:80px;text-align:center;outline:none;"
+            oninput="setMarginFromInput(this.value)"/>
+          <span style="font-size:14px;color:var(--emerald);font-family:var(--fd);">%</span>
+        </div>
+      </div>
+      <input type="range" id="marginSlider" min="0" max="1000" step="1" value="30" oninput="setMargin(this.value)"/>
+    </div>
+    <div class="section-card">
+      <div class="section-title st-amber">🎬 <span data-en="Video Deliverables" data-ar="الفيديوهات">Video Deliverables</span></div>
+      <div id="videoList"></div>
+      <button class="add-btn" onclick="addVideo()">+ <span data-en="Add Video Package" data-ar="إضافة باقة فيديو">Add Video Package</span></button>
+    </div>
+    <div class="section-card" id="fullCrewCard" style="display:none;">
+      <div class="section-title st-crew">👥 <span data-en="Crew Members" data-ar="الفريق">Crew Members</span></div>
+      <div id="crewList"></div>
+      <div class="add-member-zone">
+        <div class="add-member-title">➕ ADD MEMBER</div>
+        <div class="fg2" style="margin-bottom:8px;">
+          <div class="fg"><label class="fl">Name</label><input class="fi" id="customName" placeholder="Ahmed Ali"/></div>
+          <div class="fg"><label class="fl">Job Title</label><input class="fi" id="customRole" placeholder="Focus Puller"/></div>
+        </div>
+        <div class="fg" style="margin-bottom:8px;"><label class="fl">Day Rate</label><div class="pfx-w"><span class="pfx" id="pfx5"></span><input class="fi" id="customRate" type="number" min="0" value="0"/></div></div>
+        <button class="add-btn" onclick="addCustomCrew()">+ <span data-en="Add to Crew" data-ar="إضافة للفريق">Add to Crew</span></button>
+      </div>
+      <div id="customCrewList" style="margin-top:8px;"></div>
+    </div>
+    <div class="section-card">
+      <div class="section-title st-green">💰 <span data-en="Quick Summary" data-ar="ملخص سريع">Quick Summary</span></div>
+      <div class="mini-res-grid">
+        <div class="mini-res amber-card"><div class="mini-lbl" data-en="Costs" data-ar="التكاليف">Costs</div><div class="mini-val" id="mTotal">0</div></div>
+        <div class="mini-res amber-card"><div class="mini-lbl" data-en="Profit" data-ar="الربح">Profit</div><div class="mini-val" id="mProfit">0</div></div>
+        <div class="mini-res green-card"><div class="mini-lbl" data-en="Price" data-ar="السعر">Price</div><div class="mini-val" id="mClient">0</div></div>
+      </div>
+    </div>
+  </div>
+  <button class="action-btn" onclick="goTo('scr-breakdown')"><span data-en="VIEW COST BREAKDOWN" data-ar="عرض التفاصيل">VIEW COST BREAKDOWN</span> →</button>
+</div>
+
+<!-- ══════════ GEAR ══════════ -->
+<div class="screen" id="scr-gear">
+  <div class="topbar">
+    <div class="back-btn" onclick="goTo('scr-home')">‹</div>
+    <div class="screen-title" id="gearScreenTitle">CAMERA PACKAGES</div>
+    <div style="width:34px;"></div>
+  </div>
+  <div class="cat-indicator-row">
+    <div><div class="cat-ind-label" data-en="CATEGORY TOTAL / DAY" data-ar="إجمالي القسم / يوم">CATEGORY TOTAL / DAY</div><div class="cat-ind-total" id="catIndTotal">0</div></div>
+    <div style="font-size:10px;color:var(--text3);" id="catIndCount">0 items</div>
+  </div>
+  <div class="brand-list" id="brandList"></div>
+</div>
+
+<!-- ══════════ BREAKDOWN ══════════ -->
+<div class="screen" id="scr-breakdown">
+  <div class="topbar">
+    <div class="back-btn" onclick="goTo('scr-estimate')">‹</div>
+    <div class="screen-title" data-en="COST BREAKDOWN" data-ar="تفاصيل التكاليف">COST BREAKDOWN</div>
+    <div style="width:34px;"></div>
+  </div>
+  <div class="breakdown-list" id="breakdownList"></div>
+  <div class="budget-bar-wrap">
+    <div class="budget-bar-top">
+      <div><div class="budget-label" data-en="CLIENT PRICE" data-ar="سعر العميل">CLIENT PRICE</div><div class="budget-total" id="bkTotal">0</div></div>
+      <div style="text-align:right;"><div class="budget-label" data-en="Equip ratio" data-ar="نسبة المعدات">Equip ratio</div><div style="font-size:13px;color:var(--amber);font-weight:700;" id="bkPct">—</div></div>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="bkProgBar" style="width:0%"></div></div>
+  </div>
+  <div class="export-options">
+    <button class="exp-btn exp-btn-profit" onclick="exportPDF(true)"><span class="exp-btn-icon">📄</span><span data-en="Export with Profit" data-ar="تصدير مع الربح">Export with Profit</span></button>
+    <button class="exp-btn exp-btn-cost" onclick="exportPDF(false)"><span class="exp-btn-icon">📋</span><span data-en="Costs Only" data-ar="التكاليف فقط">Costs Only</span></button>
+  </div>
+  <button class="action-btn" style="margin-top:6px;" onclick="goTo('scr-summary')"><span data-en="VIEW BUDGET SUMMARY" data-ar="ملخص الميزانية">VIEW BUDGET SUMMARY</span></button>
+</div>
+
+<!-- ══════════ SUMMARY ══════════ -->
+<div class="screen" id="scr-summary">
+  <div class="topbar">
+    <div class="back-btn" onclick="goTo('scr-breakdown')">‹</div>
+    <div class="screen-title" data-en="BUDGET SUMMARY" data-ar="ملخص الميزانية">BUDGET SUMMARY</div>
+    <div style="width:34px;"></div>
+  </div>
+  <div class="donut-wrap">
+    <svg class="donut-svg" viewBox="0 0 200 200">
+      <defs>
+        <linearGradient id="donutGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00FF88"/>
+          <stop offset="100%" stop-color="#00D26A"/>
+        </linearGradient>
+      </defs>
+      <circle cx="100" cy="100" r="75" fill="none" stroke="#1A1A22" stroke-width="22"/>
+      <circle cx="100" cy="100" r="75" fill="none" stroke="url(#donutGrad)" stroke-width="22" stroke-dasharray="471" stroke-dashoffset="471" stroke-linecap="round" id="donutFill" style="transform:rotate(-90deg);transform-origin:100px 100px;transition:stroke-dashoffset .8s ease;filter:drop-shadow(0 0 10px rgba(0,210,106,.6))"/>
+      <text x="100" y="90" text-anchor="middle" font-family="'Bebas Neue',cursive" font-size="11" fill="#555" letter-spacing="2">TOTAL DAILY</text>
+      <text x="100" y="115" text-anchor="middle" font-family="'Bebas Neue',cursive" font-size="26" fill="#f0f0f0" id="donutVal">0</text>
+      <text x="100" y="132" text-anchor="middle" font-family="'Bebas Neue',cursive" font-size="10" fill="#555" letter-spacing="1">BUDGET</text>
+    </svg>
+  </div>
+  <div class="summary-cats" id="summaryCats"></div>
+  <button class="share-btn" onclick="exportPDF(true)"><span data-en="SHARE REPORT" data-ar="مشاركة التقرير">SHARE REPORT</span> ↗</button>
+  <button class="view-detail-btn" onclick="goTo('scr-breakdown')"><span data-en="VIEW DETAILED BREAKDOWN" data-ar="عرض التفاصيل">VIEW DETAILED BREAKDOWN</span></button>
+</div>
+
+<!-- ══════════ HISTORY ══════════ -->
+<div class="screen" id="scr-history">
+  <div class="topbar">
+    <div style="width:34px;"></div>
+    <div class="screen-title" data-en="HISTORY" data-ar="السجل">HISTORY</div>
+    <div style="width:34px;"></div>
+  </div>
+  <div class="scroll-area" id="historyList"></div>
+</div>
+
+<!-- ══════════ MY GEAR ══════════ -->
+<div class="screen" id="scr-mygear">
+  <div class="topbar">
+    <div style="width:34px;"></div>
+    <div class="screen-title" data-en="MY GEAR" data-ar="معداتي">MY GEAR</div>
+    <div style="width:34px;"></div>
+  </div>
+  <div class="scroll-area">
+    <div class="section-card" style="border-color:var(--teal-dim);background:linear-gradient(135deg,#001A12 0%,#001E16 100%);">
+      <div class="section-title st-teal">⭐ <span data-en="Add Your Equipment" data-ar="أضف معداتك">Add Your Equipment</span></div>
+      <p style="font-size:10px;color:#3a8a6a;margin-bottom:12px;line-height:1.6;" data-en="Add once → auto-selected in every calculation." data-ar="أضف مرة واحدة وستظهر تلقائياً في كل حساب.">Add once → auto-selected in every calculation.</p>
+      <div class="fg2" style="margin-bottom:10px;">
+        <div class="fg"><label class="fl">Category</label>
+          <select class="fsel" id="mgCat">
+            <option value="cameras">📷 Cameras</option>
+            <option value="lenses">🔭 Lenses</option>
+            <option value="lighting">💡 Lighting</option>
+            <option value="accessories">🎒 Accessories</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Brand</label><input class="fi" id="mgBrand" placeholder="Sony"/></div>
+        <div class="fg"><label class="fl">Model</label><input class="fi" id="mgModel" placeholder="FX3"/></div>
+        <div class="fg"><label class="fl">Price $</label><input class="fi" id="mgPrice" type="number" min="0" placeholder="3900"/></div>
+        <div class="fg"><label class="fl">Deprec %/day</label><input class="fi" id="mgDeprecPct" type="number" min="0.1" max="10" step="0.1" value="0.5"/></div>
+        <div class="fg" style="justify-content:flex-end;"><button class="add-btn" onclick="addMyGear()" style="height:40px;margin-top:auto;border-color:var(--teal);color:var(--teal);">+ Add</button></div>
+      </div>
+    </div>
+    <div id="myGearList"></div>
+  </div>
+</div>
+
+<!-- ══════════ INCOME TRACKER SCREEN ══════════ -->
+<div class="screen" id="scr-income">
+  <div class="topbar">
+    <div style="width:34px;"></div>
+    <div class="screen-title" data-en="INCOME TRACKER" data-ar="متتبع الإيرادات">INCOME TRACKER</div>
+    <div style="width:34px;"></div>
+  </div>
+
+  <!-- Period toggle -->
+  <div style="display:flex;gap:6px;margin:8px 14px;background:var(--card2);border-radius:20px;padding:4px;">
+    <button id="period-month" onclick="setIncomePeriod('month')"
+      style="flex:1;padding:6px;border-radius:16px;font-family:var(--ff);font-size:11px;font-weight:700;letter-spacing:.5px;cursor:pointer;border:none;background:#001A0A;color:var(--green);transition:all .2s;">Monthly</button>
+    <button id="period-year" onclick="setIncomePeriod('year')"
+      style="flex:1;padding:6px;border-radius:16px;font-family:var(--ff);font-size:11px;font-weight:700;letter-spacing:.5px;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:all .2s;">Yearly</button>
+  </div>
+
+  <!-- Summary cards -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 14px 10px;">
+    <div style="background:#001A0A;border:0.5px solid var(--green-dim);border-radius:10px;padding:11px;">
+      <div style="font-size:8px;color:var(--green-dim);font-weight:700;letter-spacing:1.5px;margin-bottom:4px;" data-en="TOTAL REVENUE" data-ar="إجمالي الإيرادات">TOTAL REVENUE</div>
+      <div style="font-size:18px;font-weight:700;color:var(--green);font-family:var(--fd);" id="inc-revenue">0</div>
+      <div style="font-size:9px;color:var(--text3);margin-top:2px;" id="inc-proj-count">0 projects</div>
+    </div>
+    <div style="background:#1A0000;border:0.5px solid var(--red-dim);border-radius:10px;padding:11px;">
+      <div style="font-size:8px;color:var(--red-dim);font-weight:700;letter-spacing:1.5px;margin-bottom:4px;" data-en="TOTAL COSTS" data-ar="إجمالي التكاليف">TOTAL COSTS</div>
+      <div style="font-size:18px;font-weight:700;color:var(--red);font-family:var(--fd);" id="inc-costs">0</div>
+      <div style="font-size:9px;color:var(--text3);margin-top:2px;" data-en="expenses" data-ar="مصاريف">expenses</div>
+    </div>
+    <div style="background:#001A12;border:0.5px solid var(--teal-dim);border-radius:10px;padding:11px;grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-size:8px;color:var(--teal-dim);font-weight:700;letter-spacing:1.5px;margin-bottom:4px;" data-en="NET PROFIT" data-ar="صافي الربح">NET PROFIT</div>
+        <div style="font-size:22px;font-weight:700;color:var(--teal);font-family:var(--fd);" id="inc-profit">0</div>
+        <div style="font-size:9px;color:var(--text3);margin-top:2px;" id="inc-avg">avg per project: 0</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px;" data-en="Profit margin" data-ar="هامش الربح">Profit margin</div>
+        <div style="font-size:24px;font-weight:700;color:var(--emerald);font-family:var(--fd);filter:drop-shadow(0 0 6px rgba(0,255,136,.3));" id="inc-margin-pct">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Monthly bar chart -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin:0 14px 6px;">
+    <div style="font-size:9px;color:var(--text3);font-weight:700;letter-spacing:1.5px;" data-en="MONTHLY BREAKDOWN" data-ar="التوزيع الشهري">MONTHLY BREAKDOWN</div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="display:flex;align-items:center;gap:3px;"><div style="width:8px;height:8px;background:var(--green-dim);border-radius:2px;"></div><div style="font-size:7px;color:var(--text3);">Rev</div></div>
+      <div style="display:flex;align-items:center;gap:3px;"><div style="width:8px;height:8px;background:var(--red-dim);border-radius:2px;"></div><div style="font-size:7px;color:var(--text3);">Cost</div></div>
+    </div>
+  </div>
+  <div id="incomeBarChart" style="margin:0 14px 10px;display:flex;align-items:flex-end;gap:3px;height:70px;"></div>
+
+  <!-- Project list -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin:0 14px 6px;">
+    <div style="font-size:9px;color:var(--text3);font-weight:700;letter-spacing:1.5px;" id="inc-list-label">PROJECTS THIS MONTH</div>
+    <div style="font-size:8px;color:var(--green);font-weight:700;" id="inc-proj-total"></div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:0 14px 8px;" id="incomeProjectList"></div>
+</div>
+
+
+<!-- ══════════ BOTTOM NAV ══════════ -->
+<div class="bottom-nav" style="justify-content:space-around;">
+  <div class="nav-item active" id="nav-home" onclick="showTab('home')"><div class="nav-icon">🏠</div><div class="nav-label" data-en="HOME" data-ar="الرئيسية">HOME</div></div>
+  <div class="nav-item" id="nav-calc" onclick="showTab('calc')"><div class="nav-icon">🧮</div><div class="nav-label" data-en="ESTIMATE" data-ar="التقدير">ESTIMATE</div></div>
+  <div class="nav-item" id="nav-income" onclick="showTab('income')" style=""><div class="nav-icon" style="font-size:19px;color:#00D26A;">📊</div><div class="nav-label" style="color:#00D26A;" data-en="INCOME" data-ar="الإيرادات">INCOME</div></div>
+  <div class="nav-item" id="nav-history" onclick="showTab('history')"><div class="nav-icon">🕐</div><div class="nav-label" data-en="HISTORY" data-ar="السجل">HISTORY</div></div>
+  <div class="nav-item" id="nav-settings" onclick="showTab('settings')"><div class="nav-icon">⭐</div><div class="nav-label" data-en="MY GEAR" data-ar="معداتي">MY GEAR</div></div>
+</div>
+  <div class="nav-item" id="nav-calc" onclick="showTab('calc')"><div class="nav-icon">🧮</div><div class="nav-label" data-en="ESTIMATE" data-ar="التقدير">ESTIMATE</div></div>
+  <div class="nav-item" id="nav-history" onclick="showTab('history')"><div class="nav-icon">🕐</div><div class="nav-label" data-en="HISTORY" data-ar="السجل">HISTORY</div></div>
+  <div class="nav-item" id="nav-settings" onclick="showTab('settings')"><div class="nav-icon">⭐</div><div class="nav-label" data-en="MY GEAR" data-ar="معداتي">MY GEAR</div></div>
+</div>
+<div class="notif" id="notif"></div>
+
+<script>
+const BRAND_META={Sony:{color:'#000',tc:'#fff',logo:'https://upload.wikimedia.org/wikipedia/commons/c/ca/Sony_logo.svg'},Canon:{color:'#cc0000',tc:'#fff',logo:'https://upload.wikimedia.org/wikipedia/commons/0/04/Canon_logo.svg'},Nikon:{color:'#e8a000',tc:'#000',logo:'https://upload.wikimedia.org/wikipedia/commons/9/95/Nikon_Logo.svg'},Fujifilm:{color:'#cc0000',tc:'#fff',logo:'https://upload.wikimedia.org/wikipedia/commons/f/f5/Fujifilm_logo.svg'},Panasonic:{color:'#003087',tc:'#fff',logo:'https://upload.wikimedia.org/wikipedia/commons/8/8d/Panasonic_logo_%28Blue%29.svg'},DJI:{color:'#1a1a1a',tc:'#fff',logo:'https://upload.wikimedia.org/wikipedia/commons/5/5b/DJI_logo.svg'},Godox:{color:'#cc2200',tc:'#fff',logo:''},Aputure:{color:'#004c2e',tc:'#fff',logo:''},Nanlite:{color:'#c55a00',tc:'#fff',logo:''},Profoto:{color:'#002855',tc:'#fff',logo:''},Arri:{color:'#003080',tc:'#fff',logo:''},Litepanels:{color:'#1a4a1a',tc:'#fff',logo:''},Quasar:{color:'#4a0080',tc:'#fff',logo:''},Rosco:{color:'#cc0000',tc:'#fff',logo:''},Sigma:{color:'#222',tc:'#fff',logo:''},Tamron:{color:'#003580',tc:'#fff',logo:''},Zeiss:{color:'#003380',tc:'#fff',logo:''},General:{color:'#333',tc:'#fff',logo:''}};
+
+// ═══════════════════════════════════════════════════════════
+// UPDATE 2+3: VIDEO-ONLY LIGHTING DB + FULL MODIFIERS LIST
+// ═══════════════════════════════════════════════════════════
+const GEAR_DB={
+  cameras:[
+    {brand:'Sony',models:[{n:'Sony A7S III',p:3500},{n:'Sony FX3',p:3900},{n:'Sony FX6',p:5900},{n:'Sony FX9',p:7500},{n:'Sony FX30',p:1800},{n:'Sony ZV-E1',p:2200},{n:'Sony A7 IV',p:2500},{n:'Sony A7R V',p:3900},{n:'Sony A9 III',p:5900}]},
+    {brand:'Canon',models:[{n:'EOS R5',p:3900},{n:'EOS R5 C',p:4300},{n:'EOS R6 II',p:2500},{n:'EOS R3',p:5900},{n:'Cinema C70',p:5000},{n:'Cinema C300 III',p:10000},{n:'Cinema C500 II',p:16000}]},
+    {brand:'Nikon',models:[{n:'Z6 III',p:2200},{n:'Z7 II',p:2800},{n:'Z8',p:3700},{n:'Z9',p:5500}]},
+    {brand:'Fujifilm',models:[{n:'X-T5',p:1700},{n:'X-H2S',p:2500},{n:'X-H2',p:2000},{n:'GFX100S II',p:6000}]},
+    {brand:'Panasonic',models:[{n:'S5 II',p:2000},{n:'S5 IIX',p:2500},{n:'GH6',p:2000},{n:'BS1H',p:2500},{n:'EVA1',p:4500}]},
+    {brand:'DJI',models:[{n:'Ronin 4D-6K',p:7000},{n:'Ronin 4D-8K',p:10000},{n:'Pocket 3',p:520},{n:'Action 4',p:360},{n:'Mini 4 Pro',p:960},{n:'Air 3',p:1100}]},
+    {brand:'Arri',models:[{n:'Alexa 35',p:80000},{n:'Alexa Mini LF',p:60000},{n:'Alexa Mini',p:35000}]},
+  ],
+  lenses:[
+    {brand:'Sony',models:[{n:'24-70mm f/2.8 GM II',p:2300},{n:'70-200mm f/2.8 GM II',p:2800},{n:'85mm f/1.4 GM',p:1800},{n:'35mm f/1.4 GM',p:1400},{n:'50mm f/1.2 GM',p:2000},{n:'135mm f/1.8 GM',p:1900},{n:'16-35mm f/2.8 GM',p:2200}]},
+    {brand:'Canon',models:[{n:'RF 24-70mm f/2.8L',p:2300},{n:'RF 70-200mm f/2.8L',p:2700},{n:'RF 85mm f/1.2L',p:2700},{n:'RF 50mm f/1.2L',p:2300},{n:'RF 28-70mm f/2L',p:3000},{n:'RF 15-35mm f/2.8L',p:2400}]},
+    {brand:'Nikon',models:[{n:'Z 24-70mm f/2.8S',p:2400},{n:'Z 70-200mm f/2.8S',p:2600},{n:'Z 85mm f/1.2S',p:2800},{n:'Z 50mm f/1.2S',p:2100}]},
+    {brand:'Sigma',models:[{n:'24-70mm f/2.8 DG DN',p:900},{n:'85mm f/1.4 DG DN Art',p:900},{n:'50mm f/1.4 DG DN Art',p:750},{n:'35mm f/1.4 DG DN Art',p:700}]},
+    {brand:'Tamron',models:[{n:'28-75mm f/2.8 G2',p:700},{n:'70-180mm f/2.8 G2',p:750},{n:'17-28mm f/2.8',p:600},{n:'35-150mm f/2-2.8',p:1200}]},
+    {brand:'Zeiss',models:[{n:'Batis 85mm f/1.8',p:1200},{n:'Milvus 50mm f/1.4',p:1400},{n:'CP.3 25mm T2.1',p:3800},{n:'CP.3 50mm T2.1',p:3800}]},
+  ],
+  lighting:[
+    // ── VIDEO HEADS (no photo flash) ──
+    {brand:'Godox',models:[
+      {n:'SL100D COB LED',p:180},{n:'SL150II COB LED',p:250},{n:'SL200III LED',p:380},
+      {n:'AD300 Pro Video LED',p:320},{n:'AD600 Pro Video LED',p:700},
+      {n:'MG1200Bi Monolight LED',p:1200},{n:'LA150D LED Panel',p:300},
+      {n:'TL60 Tube Light RGB',p:150},{n:'TL30 Tube Light RGB',p:90},
+      {n:'TP4R Pixel Tube',p:200},{n:'C7R Knowled',p:800},
+      {n:'LD75R RGB Panel',p:250},{n:'LC500R RGB',p:350},
+    ]},
+    {brand:'Aputure',models:[
+      {n:'LS 600d Pro (Daylight)',p:1700},{n:'LS 600x Pro (Bi-Color)',p:1900},
+      {n:'LS 300x Bi-Color',p:900},{n:'LS 120d III Daylight',p:600},
+      {n:'LS 600c RGB',p:2500},{n:'Amaran 60x Bi-Color',p:250},
+      {n:'Amaran 100d',p:180},{n:'Amaran 200x',p:350},
+      {n:'Nova P300c RGBWW',p:2000},{n:'Nova P600c RGBWW',p:3500},
+      {n:'F22c Fresnel RGBWW',p:1800},{n:'F10 Fresnel',p:700},
+      {n:'MT Pro Tube RGB',p:150},{n:'T4c Tube RGB',p:220},
+      {n:'B7c Bulb RGB',p:80},
+    ]},
+    {brand:'Nanlite',models:[
+      {n:'Forza 500B II Bi-Color',p:1200},{n:'Forza 300B Bi-Color',p:700},
+      {n:'Forza 150B Bi-Color',p:400},{n:'Forza 60B Bi-Color',p:350},
+      {n:'Pavotube II 30C RGB',p:300},{n:'Pavotube II 15C RGB',p:180},
+      {n:'PavoSlim 120B Panel',p:600},{n:'PavoSlim 60B Panel',p:380},
+      {n:'Compax 20B',p:200},{n:'FS-300B Fresnel',p:800},
+      {n:'FS-150B Fresnel',p:500},{n:'Pavobulb 10C RGB',p:120},
+    ]},
+    {brand:'Arri',models:[
+      {n:'SkyPanel S60-C RGBW',p:8000},{n:'SkyPanel S30-C RGBW',p:5000},
+      {n:'Orbiter LED Open Face',p:7000},{n:'L7-C LED Fresnel',p:4500},
+      {n:'L5-C LED Fresnel',p:3000},{n:'L10-C LED Fresnel',p:6000},
+    ]},
+    {brand:'Litepanels',models:[
+      {n:'Gemini 2x1 RGBWW',p:4000},{n:'Gemini 1x1 RGBWW',p:2500},
+      {n:'Astra 6x Bi-Color',p:1800},{n:'Astra EP Bi-Color',p:1200},
+    ]},
+    {brand:'Quasar',models:[
+      {n:'Q-LED X Cross-Fade T8 4ft',p:400},{n:'Q-LED X Cross-Fade T8 2ft',p:280},
+      {n:'Science Bulb RGBX',p:80},
+    ]},
+    {brand:'Rosco',models:[
+      {n:'LitePad HO+ Daylight',p:600},{n:'DMG Lumière SL1 RGBWW',p:2000},
+    ]},
+    // ── MODIFIERS ──
+    {brand:'Modifiers — Softboxes',models:[
+      {n:'Square Softbox',p:80},{n:'Rectangular Softbox',p:90},{n:'Strip Softbox',p:70},
+      {n:'Octabox',p:100},{n:'Deep Octa',p:120},{n:'Parabolic Softbox',p:200},
+      {n:'Lantern Softbox',p:150},{n:'Beauty Dish',p:130},{n:'Umbrella Softbox',p:90},
+    ]},
+    {brand:'Modifiers — Umbrellas',models:[
+      {n:'Shoot Through Umbrella',p:40},{n:'Reflective Umbrella',p:50},{n:'Parabolic Umbrella',p:150},
+    ]},
+    {brand:'Modifiers — Diffusion',models:[
+      {n:'Diffusion Cloth',p:30},{n:'Silk Diffusion',p:40},{n:'Scrim',p:50},
+      {n:'Grid Cloth',p:35},{n:'Frost Gel',p:25},{n:'Magic Cloth',p:80},
+    ]},
+    {brand:'Modifiers — Control',models:[
+      {n:'Honeycomb Grid',p:40},{n:'Eggcrate Grid',p:50},{n:'Snoot',p:45},
+      {n:'Barn Doors',p:50},{n:'Flag',p:35},{n:'Cutter',p:35},
+      {n:'Topper',p:30},{n:'Gobos Set',p:60},{n:'Cookie (Cucoloris)',p:40},
+    ]},
+    {brand:'Modifiers — Reflection',models:[
+      {n:'Reflector Silver',p:30},{n:'Reflector Gold',p:30},{n:'Reflector White',p:25},
+      {n:'Reflector Black',p:25},{n:'Bounce Board',p:20},{n:'Foam Board',p:15},
+    ]},
+    {brand:'Color Gels',models:[
+      {n:'CTO Gel Full',p:20},{n:'CTB Gel Full',p:20},{n:'Minus Green',p:20},
+      {n:'Plus Green',p:20},{n:'ND Gel Set',p:35},{n:'RGB Gel Set',p:50},
+    ]},
+    // ── STANDS & SUPPORT ──
+    {brand:'Stands & Support',models:[
+      {n:'Light Stand (Medium)',p:40},{n:'Heavy Duty Stand',p:80},{n:'C Stand',p:120},
+      {n:'Baby Stand',p:35},{n:'Combo Stand',p:90},{n:'Junior Stand',p:60},
+      {n:'Overhead Stand',p:200},{n:'Boom Stand',p:150},{n:'Roller Stand',p:180},
+    ]},
+    // ── ARMS & MOUNTS ──
+    {brand:'Arms & Mounts',models:[
+      {n:'Boom Arm',p:80},{n:'Grip Arm',p:60},{n:'Magic Arm',p:70},
+      {n:'Articulating Arm',p:50},{n:'Baby Pin',p:20},{n:'Junior Pin',p:25},{n:'Spigot Adapter',p:15},
+    ]},
+    // ── GRIP EQUIPMENT ──
+    {brand:'Grip Equipment',models:[
+      {n:'Grip Head',p:30},{n:'Gobo Head',p:40},{n:'Cardellini Clamp',p:35},
+      {n:'Super Clamp',p:25},{n:'Spring Clamp',p:10},{n:'Mafer Clamp',p:30},
+      {n:'Cheese Plate',p:20},{n:'Sandbag (15lb)',p:15},{n:'Safety Cable',p:10},
+    ]},
+    // ── RIGGING ──
+    {brand:'Rigging & Overhead',models:[
+      {n:'Overhead Frame 12x12',p:200},{n:'Butterfly Frame 8x8',p:150},
+      {n:'Scrim Frame',p:100},{n:'Goalpost Rig',p:300},{n:'Truss System (4m)',p:500},
+      {n:'Ultra Bounce 12x12',p:250},{n:'Black Wrap / Cinefoil',p:25},
+    ]},
+    // ── POWER ──
+    {brand:'Power & Control',models:[
+      {n:'V-Mount Battery (150Wh)',p:200},{n:'Gold Mount Battery',p:180},
+      {n:'Power Station 1000W',p:500},{n:'Extension Cable 10m',p:30},
+      {n:'Wireless DMX Controller',p:400},{n:'DMX Controller',p:300},
+      {n:'Sidus Link / Bluetooth Control',p:150},
+    ]},
+    // ── ACCESSORIES ──
+    {brand:'Lighting Accessories',models:[
+      {n:'Mount Adapter Bowens',p:30},{n:'Mount Adapter Profoto',p:40},
+      {n:'Speed Ring',p:25},{n:'Light Dome',p:200},{n:'Rain Cover',p:20},
+      {n:'Carry Case',p:50},{n:'Negative Fill Black',p:40},{n:'Solid Flag',p:60},
+    ]},
+  ],
+  accessories:[
+    {brand:'Camera Support',models:[
+      {n:'Carbon Fiber Tripod',p:300},{n:'Fluid Head Tripod',p:500},
+      {n:'Gimbal 3-Axis',p:600},{n:'DJI RS3 Pro',p:700},{n:'Shoulder Rig',p:400},
+      {n:'Slider 80cm',p:350},{n:'Jib / Crane Arm',p:800},
+    ]},
+    {brand:'Follow Focus & Lens Control',models:[
+      {n:'Wireless Follow Focus',p:500},{n:'Lens Control Motor',p:300},
+      {n:'Matte Box',p:300},{n:'ND Filter Set (Variable)',p:200},{n:'Camera Cage',p:250},
+    ]},
+    {brand:'Monitoring & Audio',models:[
+      {n:'External Monitor 5"',p:400},{n:'External Monitor 7"',p:700},
+      {n:'Shotgun Mic',p:300},{n:'Lavalier Mic Kit',p:200},{n:'Boom Pole',p:150},
+      {n:'Audio Recorder',p:400},{n:'Wireless Audio System',p:600},
+    ]},
+    {brand:'Storage & Power',models:[
+      {n:'Memory Cards Set (4x)',p:150},{n:'CFexpress Cards (2x)',p:250},
+      {n:'Extra Batteries Pack',p:120},{n:'Charging Station',p:80},
+    ]},
+    {brand:'General',models:[
+      {n:'Reflector 5-in-1',p:80},{n:'Backdrop + Stand Kit',p:200},
+      {n:'C-Stand Set (2x)',p:180},{n:'Gaffer Tape Set',p:30},
+    ]},
+  ],
+};
+
+const CATS=[
+  {id:'cameras',    en:'📷 Camera Packages', ar:'📷 الكاميرات',   icon:'📷',label:'CAMERA PACKAGES',   colorCls:'cat-cameras',    indColor:'#FF4D4D'},
+  {id:'lenses',     en:'🔭 Lens Packages',   ar:'🔭 العدسات',     icon:'🔭',label:'LENS PACKAGES',      colorCls:'cat-lenses',     indColor:'#7A5CFF'},
+  {id:'lighting',   en:'💡 Lighting',        ar:'💡 الإضاءة',     icon:'💡',label:'LIGHTING & POWER',   colorCls:'cat-lighting',   indColor:'#FFC857'},
+  {id:'accessories',en:'🎒 Grip & Support',  ar:'🎒 الإكسسوارات', icon:'🎒',label:'GRIP & SUPPORT',     colorCls:'cat-accessories', indColor:'#5E81AC'},
+];
+
+const CREW_ROLES=[
+  {id:'director',     icon:'🎬',en:'Director / DOP',         ar:'مدير تصوير',      rate:3000},
+  {id:'focus_puller', icon:'🎯',en:'Focus Puller (1st AC)',   ar:'فوكس بولر',       rate:1200},
+  {id:'2nd_ac',       icon:'🎞️',en:'2nd AC / Clapper',       ar:'مساعد كاميرا 2',  rate:800},
+  {id:'art_director', icon:'🖼️',en:'Art Director',           ar:'مدير فني',        rate:2000},
+  {id:'set_designer', icon:'🏛️',en:'Set Designer',           ar:'مصمم ديكور',      rate:1500},
+  {id:'props',        icon:'🪑',en:'Props Master',            ar:'مسؤول الإكسسوار',rate:1000},
+  {id:'decorator',    icon:'🌺',en:'Set Decorator',           ar:'ديكوراتير',       rate:1200},
+  {id:'gaffer',       icon:'💡',en:'Gaffer (Chief Lighting)', ar:'رئيس إضاءة',     rate:1500},
+  {id:'lighting_op',  icon:'🔦',en:'Lighting Operator',       ar:'مشغل إضاءة',     rate:800},
+  {id:'grip',         icon:'🔧',en:'Key Grip',                ar:'جريب',           rate:900},
+  {id:'makeup',       icon:'💄',en:'Makeup Artist',           ar:'مكياج',          rate:800},
+  {id:'hair',         icon:'💇',en:'Hair Stylist',            ar:'كوافير',         rate:700},
+  {id:'wardrobe',     icon:'👗',en:'Wardrobe Stylist',        ar:'ستايليست ملابس', rate:900},
+  {id:'model',        icon:'🧑‍🎤',en:'Model / Talent',        ar:'موديل',          rate:1200},
+  {id:'producer',     icon:'📋',en:'Producer',                ar:'منتج',           rate:2000},
+  {id:'pa',           icon:'🧑‍💼',en:'Production Assistant',  ar:'مساعد إنتاج',    rate:500},
+  {id:'bts',          icon:'📸',en:'BTS Photographer',        ar:'مصور BTS',       rate:800},
+  {id:'editor',       icon:'🖥️',en:'Video Editor',            ar:'مونتير',         rate:1000},
+  {id:'colorist',     icon:'🎨',en:'Colorist',                ar:'كولوريست',       rate:1200},
+  {id:'catering',     icon:'🍽️',en:'Catering / Buffet',       ar:'بوفيه / كاترينج',rate:600},
+  {id:'driver',       icon:'🚗',en:'Driver / Runner',         ar:'سائق / راسل',    rate:400},
+  {id:'security',     icon:'🛡️',en:'Security',                ar:'أمن',           rate:300},
+];
+
+const CURRENCIES={EGP:{sym:'ج.م',pos:'after'},USD:{sym:'$',pos:'before'},SAR:{sym:'ر.س',pos:'after'},AED:{sym:'د.إ',pos:'after'}};
+
+let S={lang:'en',currency:'EGP',mode:'one',margin:30,activeCat:'cameras',homeGearActive:{},
+  selectedGear:{},
+  myGear:JSON.parse(localStorage.getItem('pc6_mygear')||'[]'),
+  videos:[],vid:0,crew:{},customCrew:[],
+  history:JSON.parse(localStorage.getItem('pc6_hist')||'[]'),
+};
+CREW_ROLES.forEach(r=>{S.crew[r.id]={count:0,rate:r.rate};});
+
+const fmt=v=>{const c=CURRENCIES[S.currency];const n=Math.round(v).toLocaleString();return c.pos==='before'?c.sym+n:n+' '+c.sym;};
+const gk=(cat,brand,name)=>`${cat}||${brand}||${name}`;
+const setPfx=()=>{const s=CURRENCIES[S.currency].sym;['pfx1','pfx2','pfx3','pfx4','pfx5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=s;});};
+const showNotif=msg=>{const n=document.getElementById('notif');n.textContent=msg;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),2200);};
+
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='scr-home'){buildCatGrid();updateHero();}
+  if(id==='scr-breakdown'){buildBreakdown();}
+  if(id==='scr-summary'){buildSummary();}
+  if(id==='scr-history'){renderHistory();}
+  if(id==='scr-income'){renderIncomeScreen();}
+  if(id==='scr-mygear'){renderMyGearList();}
+}
+function showTab(tab){
+  const map={home:'scr-home',calc:'scr-estimate',income:'scr-income',history:'scr-history',settings:'scr-mygear'};
+  goTo(map[tab]);
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('nav-'+tab)?.classList.add('active');
+  if(tab==='income'){renderIncomeScreen();}
+}
+
+// ─── COSTS ────────────────────────────────────────────────
+function catCost(cid){return Object.entries(S.selectedGear).filter(([k])=>k.startsWith(cid+'||')).reduce((s,[,g])=>s+g.dailyRate,0);}
+function totalEquip(){return CATS.reduce((s,c)=>s+catCost(c.id),0);}
+function calcVideo(){return S.videos.reduce((s,v)=>s+v.count*(v.pricePerVideo||0)+v.count*(v.editHours||0)*(v.editRate||0),0);}
+function calcCrew(){return Object.values(S.crew).reduce((s,c)=>s+c.count*c.rate,0)+S.customCrew.reduce((s,c)=>s+c.rate,0);}
+function totals(){
+  const loc=parseFloat(document.getElementById('locationCost')?.value)||0;
+  const trans=parseFloat(document.getElementById('transportCost')?.value)||0;
+  const day=parseFloat(document.getElementById('dayRate')?.value)||0;
+  const other=parseFloat(document.getElementById('otherCost')?.value)||0;
+  const equip=totalEquip();const video=calcVideo();const crew=S.mode==='full'?calcCrew():0;
+  const total=equip+loc+trans+day+video+crew+other;
+  const profit=total*(S.margin/100);return{total,profit,client:total+profit,equip,loc,trans,day,video,crew,other};
+}
+
+// ─── HERO UPDATE ──────────────────────────────────────────
+function updateHero(){
+  const {total,client}=totals();
+  document.getElementById('heroAmount').textContent=Math.round(total).toLocaleString();
+  document.getElementById('heroCurrency').textContent=CURRENCIES[S.currency].sym;
+  document.getElementById('heroMarginPct').textContent=S.margin+'%';
+  document.getElementById('heroClientPrice').textContent=fmt(client);
+  const pillMap={cameras:'cam-active',lenses:'lens-active',lighting:'light-active',accessories:'grip-active'};
+  CATS.forEach(c=>{
+    const cost=catCost(c.id);
+    const valEl=document.getElementById('hp-'+c.id);
+    const pill=document.getElementById('pill-'+c.id);
+    if(valEl)valEl.textContent=cost>0?fmt(cost):'—';
+    if(pill){pill.className='hero-pill';if(cost>0)pill.classList.add(pillMap[c.id]);}
+  });
+}
+
+// ─── CAT GRID ────────────────────────────────────────────
+function buildCatGrid(){
+  updateMyGearQuickCard();
+  document.getElementById('catGrid').innerHTML=CATS.map(c=>{
+    const cost=catCost(c.id);const has=cost>0;
+    return `<div class="cat-card ${c.colorCls}${has?' has-items':''}" onclick="openGearCat('${c.id}')">
+      <div class="cat-card-top"><div class="cat-icon">${c.icon}</div><div class="cat-arrow" style="color:${has?c.indColor:'var(--text3)'}">›</div></div>
+      <div class="cat-name">${S.lang==='ar'?c.ar.replace(/📷|🔭|💡|🎒/g,'').trim():c.en.replace(/📷|🔭|💡|🎒/g,'').trim()}</div>
+      <div class="cat-cost${has?'':' zero'}" style="${has?'color:'+c.indColor:''}">${has?fmt(cost):(S.lang==='ar'?'اضغط':'Tap to select')}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── MY GEAR QUICK CARD ───────────────────────────────────
+function updateMyGearQuickCard(){
+  buildHomeGearPanel();
+}
+function buildHomeGearPanel(){
+  const panel=document.getElementById('homeMyGearItems');
+  const emptyEl=document.getElementById('homeGearEmpty');
+  const sub=document.getElementById('homeGearSubtitle');
+  if(!panel)return;
+  const activeCount=S.myGear.filter((g,i)=>S.homeGearActive[i]).length;
+  if(sub)sub.textContent=(S.lang==='ar'?'اختر المعدات لإضافتها للحساب':'Select items to include in cost')+' ('+activeCount+'/'+S.myGear.length+')';
+  if(!S.myGear.length){
+    panel.innerHTML='<div style="font-size:11px;color:var(--text3);text-align:center;padding:8px 0;">'+
+      (S.lang==='ar'?'لا توجد معدات — اضغط إضافة':'No saved gear yet — tap ADD')+'</div>';
+    return;
+  }
+  // group by category
+  const byCat={cameras:[],lenses:[],lighting:[],accessories:[]};
+  S.myGear.forEach((g,i)=>{ if(byCat[g.cat])byCat[g.cat].push({g,i}); });
+  const catLabels={cameras:{icon:'📷',color:'var(--cam-b)'},lenses:{icon:'🔭',color:'var(--lens)'},lighting:{icon:'💡',color:'var(--light)'},accessories:{icon:'🎒',color:'var(--grip)'}};
+  let html='';
+  Object.entries(byCat).forEach(([cat,items])=>{
+    if(!items.length)return;
+    const cl=catLabels[cat];
+    html+='<div style="margin-bottom:4px;">';
+    html+='<div style="font-size:9px;color:'+cl.color+';font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">'+cl.icon+' '+cat.toUpperCase()+'</div>';
+    items.forEach(({g,i})=>{
+      const active=!!S.homeGearActive[i];
+      const key=gk(g.cat,'My Gear',g.brand+' '+g.name);
+      const dr=S.selectedGear[key]?.dailyRate??(g.dailyRate??(g.price*g.deprecPct/100));
+      html+='<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:'+
+        (active?'rgba(0,201,141,.08)':' rgba(255,255,255,.02)')+';border:1px solid '+
+        (active?'var(--teal-dim)':' var(--border)')+';border-radius:8px;transition:all .2s;cursor:pointer;" onclick="toggleHomeGear('+i+')">';
+      html+='<div style="width:18px;height:18px;border-radius:50%;border:1.5px solid '+
+        (active?'var(--teal)':' var(--text3)')+';background:'+
+        (active?'var(--teal)':' transparent')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;">'+
+        (active?'✓':'') + '</div>';
+      html+='<div style="flex:1;min-width:0;">';
+      html+='<div style="font-size:11px;font-weight:600;color:'+
+        (active?'var(--text)':' var(--text2)')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+g.brand+' '+g.name+'</div>';
+      html+='<div style="font-size:9px;color:var(--text3);">'+fmt(dr)+'/day</div>';
+      html+='</div>';
+      html+='</div>';
+    });
+    html+='</div>';
+  });
+  panel.innerHTML=html;
+}
+function toggleHomeGear(i){
+  const g=S.myGear[i];
+  const key=gk(g.cat,'My Gear',g.brand+' '+g.name);
+  if(S.homeGearActive[i]){
+    S.homeGearActive[i]=false;
+    delete S.selectedGear[key];
+  } else {
+    S.homeGearActive[i]=true;
+    const dr=g.dailyRate??(g.price*g.deprecPct/100);
+    S.selectedGear[key]={refPrice:g.price,deprecPct:g.deprecPct,dailyRate:dr};
+  }
+  localStorage.setItem('pc6_gearactive',JSON.stringify(S.homeGearActive));
+  buildHomeGearPanel();buildCatGrid();calculate();updateHero();
+}
+
+// ─── OPEN GEAR CAT ────────────────────────────────────────
+function openGearCat(catId){
+  S.activeCat=catId;
+  const cat=CATS.find(c=>c.id===catId);
+  document.getElementById('gearScreenTitle').textContent=cat.label;
+  document.getElementById('catIndTotal').style.color=cat.indColor;
+  buildBrandList();updateCatIndicator();goTo('scr-gear');
+}
+
+// ─── CAT INDICATOR ───────────────────────────────────────
+function updateCatIndicator(){
+  const cost=catCost(S.activeCat);
+  const cnt=Object.keys(S.selectedGear).filter(k=>k.startsWith(S.activeCat+'||')).length;
+  document.getElementById('catIndTotal').textContent=fmt(cost);
+  document.getElementById('catIndCount').textContent=cnt+' '+(S.lang==='ar'?'مختار':'selected');
+}
+
+// ─── BRAND LIST ──────────────────────────────────────────
+function buildBrandList(){
+  const brands=GEAR_DB[S.activeCat]||[];
+  const myInCat=S.myGear.filter(g=>g.cat===S.activeCat);
+  let html='';
+  if(myInCat.length){
+    const rows=myInCat.map(g=>gearRowHTML(S.activeCat,'My Gear',g.brand+' '+g.name,g.price,g.deprecPct,true)).join('');
+    html+=brandBlock('mg','⭐',{color:'#1a4c2a',tc:'#fff',logo:''},'⭐ My Own Gear',myInCat.length,rows,true);
+  }
+  brands.forEach((b,i)=>{
+    const rows=b.models.map(m=>gearRowHTML(S.activeCat,b.brand,m.n,m.p,0.5,false)).join('');
+    const has=b.models.some(m=>S.selectedGear[gk(S.activeCat,b.brand,m.n)]);
+    html+=brandBlock('b'+i,b.brand[0],BRAND_META[b.brand]||{color:'#333',tc:'#fff',logo:''},b.brand,b.models.length,rows,has);
+  });
+  document.getElementById('brandList').innerHTML=html;
+}
+function brandBlock(id,init,meta,name,count,rows,open){
+  const logo=meta.logo?`<img class="brand-logo" src="${meta.logo}" alt="${name}" onerror="this.style.display='none';this.nextSibling.style.display='flex'"/><div class="brand-logo-fb" style="background:${meta.color};color:${meta.tc};display:none;">${init}</div>`:`<div class="brand-logo-fb" style="background:${meta.color};color:${meta.tc};">${init}</div>`;
+  return `<div class="brand-section"><div class="brand-hdr" onclick="toggleBrand('${id}')"><div class="brand-hdr-l">${logo}<div><div class="brand-name">${name}</div><div class="brand-cnt">${count} items</div></div></div><span class="brand-arr${open?' open':''}" id="arr-${id}">▼</span></div><div class="brand-body${open?' open':''}" id="body-${id}"><div class="gear-list-items">${rows}</div></div></div>`;
+}
+function gearRowHTML(cat,brand,name,ref,defPct,isMine){
+  const key=gk(cat,brand,name);const sel=!!S.selectedGear[key];const g=S.selectedGear[key]||{};
+  const dr=g.dailyRate??(ref*(defPct||0.5)/100);const sym=CURRENCIES[S.currency].sym;
+  return `<div class="gear-row${sel?' selected':''}">
+    <div class="gear-row-info" onclick="toggleGear(event,'${cat}','${brand.replace(/'/g,"\\'")}','${name.replace(/'/g,"\\'")}',${ref},${defPct||0.5})">
+      ${isMine?'<span style="font-size:9px;color:var(--teal);font-weight:700;">⭐ MINE &nbsp;</span>':''}
+      <div class="gear-row-name">${name}</div>
+      <div class="gear-row-price">ref $${ref.toLocaleString()} · ${defPct||0.5}%/day</div>
+    </div>
+    <div class="gear-row-right">
+      <label class="toggle"><input type="checkbox" ${sel?'checked':''} onchange="toggleGear(event,'${cat}','${brand.replace(/'/g,"\\'")}','${name.replace(/'/g,"\\'")}',${ref},${defPct||0.5})"/><span class="toggle-slider"></span></label>
+      ${sel?`<input class="gear-daily-input" type="number" min="0" step="0.5" value="${dr.toFixed(1)}" onclick="event.stopPropagation()" oninput="updateDailyRate('${key.replace(/'/g,"\\'")}',this.value)"/><div style="font-size:8px;color:var(--text3);text-align:right;">${sym}/day</div>`:''}
+    </div>
+  </div>`;
+}
+function toggleGear(e,cat,brand,name,ref,defPct){
+  e.stopPropagation();const key=gk(cat,brand,name);
+  if(S.selectedGear[key]){delete S.selectedGear[key];}
+  else{S.selectedGear[key]={refPrice:ref,deprecPct:defPct,dailyRate:ref*defPct/100};}
+  buildBrandList();updateCatIndicator();calculate();buildCatGrid();updateHero();
+}
+function updateDailyRate(key,val){
+  if(!S.selectedGear[key])return;
+  S.selectedGear[key].dailyRate=parseFloat(val)||0;
+  updateCatIndicator();calculate();updateHero();
+}
+function toggleBrand(id){const b=document.getElementById('body-'+id),a=document.getElementById('arr-'+id);if(b){b.classList.toggle('open');if(a)a.classList.toggle('open');}}
+
+// ─── CALCULATE ───────────────────────────────────────────
+function calculate(){
+  const {total,profit,client}=totals();
+  const mT=document.getElementById('mTotal');const mP=document.getElementById('mProfit');const mC=document.getElementById('mClient');
+  if(mT)mT.textContent=fmt(total);if(mP)mP.textContent=fmt(profit);if(mC)mC.textContent=fmt(client);
+  updateHero();
+}
+
+// ─── VIDEO ───────────────────────────────────────────────
+function addVideo(){const id=++S.vid;S.videos.push({id,name:'',count:1,pricePerVideo:0,editHours:2,editRate:0});renderVideoList();}
+function removeVideo(id){S.videos=S.videos.filter(v=>v.id!==id);renderVideoList();}
+function updateVideo(id,field,val){const v=S.videos.find(x=>x.id===id);if(!v)return;v[field]=field==='name'?val:(parseFloat(val)||0);const t=v.count*(v.pricePerVideo||0)+v.count*(v.editHours||0)*(v.editRate||0);const el=document.getElementById('vt-'+id);if(el)el.textContent=fmt(t);calculate();}
+function renderVideoList(){
+  const sym=CURRENCIES[S.currency].sym;
+  document.getElementById('videoList').innerHTML=S.videos.map(v=>`<div class="vpkg"><div class="vpkg-hdr"><div class="vpkg-name">🎬 ${S.lang==='ar'?'باقة فيديو':'Video Package'}</div><button class="icon-btn" onclick="removeVideo(${v.id})">✕</button></div><div class="fg2"><div class="fg"><label class="fl">${S.lang==='ar'?'الاسم':'Name'}</label><input class="fi" value="${v.name}" placeholder="60s Reel" oninput="updateVideo(${v.id},'name',this.value)"/></div><div class="fg"><label class="fl">${S.lang==='ar'?'العدد':'Count'}</label><input class="fi" type="number" min="1" value="${v.count}" oninput="updateVideo(${v.id},'count',this.value)"/></div><div class="fg"><label class="fl">${S.lang==='ar'?'سعر/فيديو':'Price/Video'}</label><div class="pfx-w"><span class="pfx">${sym}</span><input class="fi" type="number" min="0" value="${v.pricePerVideo}" oninput="updateVideo(${v.id},'pricePerVideo',this.value)"/></div></div><div class="fg"><label class="fl">${S.lang==='ar'?'ساعات مونتاج':'Edit Hrs'}</label><input class="fi" type="number" min="0" step="0.5" value="${v.editHours}" oninput="updateVideo(${v.id},'editHours',this.value)"/></div><div class="fg" style="grid-column:1/-1"><label class="fl">${S.lang==='ar'?'سعر ساعة مونتاج':'Edit Rate/Hr'}</label><div class="pfx-w"><span class="pfx">${sym}</span><input class="fi" type="number" min="0" value="${v.editRate}" oninput="updateVideo(${v.id},'editRate',this.value)"/></div></div></div><div style="background:var(--green-bg);border-radius:6px;padding:7px 11px;margin-top:8px;font-size:12px;color:var(--green);display:flex;justify-content:space-between;"><span>Total:</span><strong id="vt-${v.id}">${fmt(v.count*(v.pricePerVideo||0)+v.count*(v.editHours||0)*(v.editRate||0))}</strong></div></div>`).join('');calculate();}
+
+// ─── CREW ────────────────────────────────────────────────
+function buildCrewList(){
+  const sym=CURRENCIES[S.currency].sym;
+  document.getElementById('crewList').innerHTML=CREW_ROLES.map(r=>{
+    const cs=S.crew[r.id];
+    return `<div class="crew-row"><div class="crew-top"><div class="crew-lbl">${r.icon} ${S.lang==='ar'?r.ar:r.en}</div><div class="cnt-ctrl"><div class="cnt-btn" onclick="changeCount('${r.id}',-1)">−</div><div class="cnt-num" id="cnt-${r.id}">${cs.count}</div><div class="cnt-btn" onclick="changeCount('${r.id}',1)">+</div></div></div><div class="fg"><label class="fl">${S.lang==='ar'?'الأجر اليومي':'Day Rate'}</label><div class="pfx-w"><span class="pfx">${sym}</span><input class="fi" type="number" value="${cs.rate}" min="0" oninput="updateCrewRate('${r.id}',this.value)"/></div></div></div>`;
+  }).join('');}
+function changeCount(id,d){S.crew[id].count=Math.max(0,S.crew[id].count+d);document.getElementById('cnt-'+id).textContent=S.crew[id].count;calculate();}
+function updateCrewRate(id,val){S.crew[id].rate=parseFloat(val)||0;calculate();}
+function addCustomCrew(){
+  const name=document.getElementById('customName').value.trim();const role=document.getElementById('customRole').value.trim()||'Crew';const rate=parseFloat(document.getElementById('customRate').value)||0;
+  if(!name){showNotif('Enter member name');return;}
+  S.customCrew.push({name,role,rate});renderCustomCrewList();
+  document.getElementById('customName').value='';document.getElementById('customRole').value='';document.getElementById('customRate').value='0';calculate();}
+function removeCustomCrew(i){S.customCrew.splice(i,1);renderCustomCrewList();calculate();}
+function renderCustomCrewList(){
+  document.getElementById('customCrewList').innerHTML=S.customCrew.map((c,i)=>`<div class="custom-crew-item"><div style="flex:1"><div style="font-size:13px;font-weight:600;">${c.name}</div><div style="font-size:10px;color:var(--text3);">${c.role}</div></div><div style="font-size:14px;color:var(--crew-full);font-weight:700;font-family:var(--fd);">${fmt(c.rate)}</div><button class="icon-btn" onclick="removeCustomCrew(${i})">✕</button></div>`).join('');}
+
+// ─── BREAKDOWN ───────────────────────────────────────────
+function buildBreakdown(){
+  const {total,profit,client,equip,loc,trans,day,video,crew,other}=totals();
+  const items=[
+    ...Object.entries(S.selectedGear).map(([key,g])=>{const[cat,,name]=key.split('||');return{icon:CATS.find(c=>c.id===cat)?.icon||'📦',name,cost:g.dailyRate};}),
+    ...(loc>0?[{icon:'📍',name:S.lang==='ar'?'الموقع':'Location/Studio',cost:loc}]:[]),
+    ...(trans>0?[{icon:'🚗',name:S.lang==='ar'?'الانتقالات':'Transportation',cost:trans}]:[]),
+    ...(day>0?[{icon:'📸',name:S.lang==='ar'?'أجر المصور':'Photographer Fee',cost:day}]:[]),
+    ...(video>0?[{icon:'🎬',name:S.lang==='ar'?'باقات الفيديو':'Video Packages',cost:video}]:[]),
+    ...(crew>0&&S.mode==='full'?[{icon:'👥',name:S.lang==='ar'?'تكاليف الفريق':'Crew Costs',cost:crew}]:[]),
+    ...(other>0?[{icon:'💼',name:S.lang==='ar'?'مصاريف أخرى':'Other',cost:other}]:[]),
+  ];
+  document.getElementById('breakdownList').innerHTML=items.length?items.map(it=>`<div class="bk-item"><div class="bk-icon">${it.icon}</div><div class="bk-info"><div class="bk-name">${it.name}</div></div><div class="bk-cost">−${fmt(it.cost)}</div></div>`).join(''):`<div class="empty-s"><div class="empty-icon">📋</div><p class="empty-txt">${S.lang==='ar'?'لا توجد تكاليف':'No costs added'}</p></div>`;
+  document.getElementById('bkTotal').textContent=fmt(client);
+  const pct=total>0?Math.round((equip/total)*100):0;
+  document.getElementById('bkPct').textContent=pct+'%';
+  document.getElementById('bkProgBar').style.width=Math.min(pct,100)+'%';
+  const name=document.getElementById('projectName')?.value||(S.lang==='ar'?'مشروع':'Project');
+  if(!S.history[0]||S.history[0].name!==name){S.history.unshift({name,date:new Date().toLocaleDateString(),mode:S.mode,price:Math.round(client),cost:Math.round(total),currency:S.currency});}
+  else{S.history[0].price=Math.round(client);S.history[0].cost=Math.round(total);}
+  localStorage.setItem('pc6_hist',JSON.stringify(S.history.slice(0,50)));
+}
+
+// ─── SUMMARY ─────────────────────────────────────────────
+function buildSummary(){
+  const {client,total,equip,video,crew}=totals();
+  const pct=total>0?equip/total:0.5;
+  document.getElementById('donutFill').style.strokeDashoffset=471-(471*Math.min(pct,1));
+  document.getElementById('donutVal').textContent=fmt(client);
+  const items=[{icon:'📷',name:'CAMERA',val:catCost('cameras')},{icon:'🔭',name:'LENSES',val:catCost('lenses')},{icon:'💡',name:'LIGHTING',val:catCost('lighting')},{icon:'🎒',name:'GRIP',val:catCost('accessories')},{icon:'🎬',name:'VIDEO',val:video},{icon:'👥',name:'CREW',val:crew}].filter(i=>i.val>0);
+  document.getElementById('summaryCats').innerHTML=items.slice(0,6).map(it=>`<div class="sum-cat"><div class="sum-cat-icon">${it.icon}</div><div class="sum-cat-name">${it.name}</div><div class="sum-cat-val">${fmt(it.val)}</div></div>`).join('');
+}
+
+// ─── UPDATE 1: MY GEAR — EDITABLE RATE ───────────────────
+function addMyGear(){
+  const cat=document.getElementById('mgCat').value;const brand=document.getElementById('mgBrand').value.trim()||'Custom';
+  const name=document.getElementById('mgModel').value.trim();const price=parseFloat(document.getElementById('mgPrice').value)||0;
+  const deprecPct=parseFloat(document.getElementById('mgDeprecPct').value)||0.5;
+  if(!name||!price){showNotif(S.lang==='ar'?'أدخل الاسم والسعر':'Enter name & price');return;}
+  S.myGear.push({cat,brand,name,price,deprecPct});
+  localStorage.setItem('pc6_mygear',JSON.stringify(S.myGear));
+  const key=gk(cat,'My Gear',brand+' '+name);
+  S.selectedGear[key]={refPrice:price,deprecPct,dailyRate:price*deprecPct/100};
+  document.getElementById('mgModel').value='';document.getElementById('mgPrice').value='';
+  renderMyGearList();buildHomeGearPanel();buildCatGrid();calculate();updateHero();
+  showNotif(S.lang==='ar'?'تمت الإضافة وتم تفعيلها ✓':'Added & auto-selected ✓');
+}
+function removeMyGear(i){
+  const g=S.myGear[i];delete S.selectedGear[gk(g.cat,'My Gear',g.brand+' '+g.name)];
+  S.myGear.splice(i,1);localStorage.setItem('pc6_mygear',JSON.stringify(S.myGear));
+  renderMyGearList();buildHomeGearPanel();buildCatGrid();calculate();updateHero();
+}
+// UPDATE 1: update daily rate of saved gear item
+function updateMyGearRate(i,val){
+  const g=S.myGear[i];const newRate=parseFloat(val)||0;
+  g.dailyRate=newRate; // store override
+  const key=gk(g.cat,'My Gear',g.brand+' '+g.name);
+  if(S.selectedGear[key])S.selectedGear[key].dailyRate=newRate;
+  localStorage.setItem('pc6_mygear',JSON.stringify(S.myGear));
+  calculate();updateHero();buildCatGrid();
+}
+function renderMyGearList(){
+  const list=document.getElementById('myGearList');if(!list)return;
+  if(!S.myGear.length){list.innerHTML=`<div class="empty-s"><div class="empty-icon">📦</div><p class="empty-txt">${S.lang==='ar'?'لا توجد معدات محفوظة':'No saved gear'}</p></div>`;return;}
+  list.innerHTML=S.myGear.map((g,i)=>{
+    const key=gk(g.cat,'My Gear',g.brand+' '+g.name);
+    const currentRate=S.selectedGear[key]?.dailyRate??(g.dailyRate??(g.price*g.deprecPct/100));
+    const sym=CURRENCIES[S.currency].sym;
+    return `<div class="mg-row">
+      <div style="flex:1">
+        <div class="mg-name">⭐ ${g.brand} ${g.name}</div>
+        <div class="mg-det">${g.cat} · $${g.price.toLocaleString()} · ${g.deprecPct}%/day</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:5px;">
+          <span style="font-size:9px;color:var(--text3);font-weight:600;">${S.lang==='ar'?'إيجار يومي:':'Daily rate:'}</span>
+          <input class="mg-rate-edit" type="number" min="0" step="0.5" value="${currentRate.toFixed(1)}" oninput="updateMyGearRate(${i},this.value)"/>
+          <span style="font-size:9px;color:var(--amber-dim);">${sym}/day</span>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div class="mg-price">$${g.price.toLocaleString()}</div>
+        <button class="icon-btn" onclick="removeMyGear(${i})" style="margin-top:6px;">✕</button>
+      </div>
+    </div>`;
+  }).join('');}
+
+// ─── HISTORY ─────────────────────────────────────────────
+function renderHistory(){
+  const list=document.getElementById('historyList');
+  const items=S.history.filter(Boolean);
+  if(!items.length){list.innerHTML=`<div class="empty-s"><div class="empty-icon">📂</div><p class="empty-txt">${S.lang==='ar'?'لا يوجد سجل':'No history'}</p></div>`;return;}
+  list.innerHTML=items.map(h=>`<div class="hist-item"><div><div class="hn">${h.name}</div><div class="hd">${h.date}</div><span class="${h.mode==='one'?'pill pill-one':'pill pill-full'}">${h.mode==='one'?'One Man':'Full Crew'}</span></div><div class="hp-hist">${h.price?.toLocaleString()||0} ${CURRENCIES[h.currency]?.sym||''}</div></div>`).join('');}
+
+// ─── MODE / MARGIN / CURRENCY / LANG ─────────────────────
+function setMode(m){
+  S.mode=m;
+  document.getElementById('btnOne').classList.toggle('active',m==='one');
+  document.getElementById('btnFull').classList.toggle('active',m==='full');
+  const fc=document.getElementById('fullCrewCard');if(fc)fc.style.display=m==='full'?'block':'none';
+  if(m==='full')buildCrewList();
+  calculate();
+}
+function syncProjectName(v){
+  const main=document.getElementById('projectName');
+  if(main)main.value=v;
+}
+function setMargin(v){
+  v=Math.min(1000,Math.max(0,parseInt(v)||0));
+  S.margin=v;
+  const sl=document.getElementById('marginSlider');if(sl)sl.value=v;
+  const inp=document.getElementById('marginInput');if(inp)inp.value=v;
+  const disp=document.getElementById('marginDisp');if(disp)disp.textContent=v+'%';
+  const hmp=document.getElementById('heroMarginPct');if(hmp)hmp.textContent=v+'%';
+  calculate();
+}
+function setMarginFromInput(v){setMargin(v);}
+function setCurrency(v){S.currency=v;setPfx();if(S.mode==='full')buildCrewList();if(S.videos.length)renderVideoList();calculate();buildCatGrid();updateHero();updateMyGearQuickCard();}
+function toggleLang(){
+  S.lang=S.lang==='en'?'ar':'en';
+  document.body.dataset.lang=S.lang;document.documentElement.lang=S.lang;document.documentElement.dir=S.lang==='ar'?'rtl':'ltr';
+  document.getElementById('langBtn').textContent=S.lang==='en'?'عربي':'EN';
+  document.querySelectorAll('[data-en]').forEach(el=>{el.textContent=S.lang==='ar'?el.dataset.ar:el.dataset.en;});
+  buildCatGrid();updateMyGearQuickCard();
+}
+
+// ─── UPDATE 3: PDF EXPORT ────────────────────────────────
+function exportPDF(withProfit){
+  const {total,profit,client,equip,loc,trans,day,video,crew,other}=totals();
+  const finalPrice=withProfit?client:total;const name=document.getElementById('projectName')?.value||'Estimate';const date=new Date().toLocaleDateString();
+  const gearRows=Object.entries(S.selectedGear).map(([key,g])=>{const[,brand,n]=key.split('||');return`<tr><td>${n}</td><td>$${g.refPrice.toLocaleString()}</td><td>${g.deprecPct}%</td><td>${fmt(g.dailyRate)}/day</td></tr>`;}).join('');
+  const title=withProfit?'CLIENT PRICE':'TOTAL COSTS (No Profit)';
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>${name}</title>
+  <style>body{font-family:Arial,sans-serif;max-width:720px;margin:40px auto;color:#1a1a1a;padding:24px;}
+  .hdr{display:flex;justify-content:space-between;border-bottom:3px solid ${withProfit?'#00D26A':'#FF8A00'};padding-bottom:14px;margin-bottom:20px;}
+  .lm{font-size:20px;font-weight:900;letter-spacing:2px;}.ls{font-size:9px;color:${withProfit?'#00D26A':'#FF8A00'};font-weight:700;letter-spacing:2px;}
+  .badge{background:${withProfit?'#00D26A':'#FF8A00'};color:#fff;padding:4px 14px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:1px;}
+  h2{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;margin:18px 0 7px;}
+  table{width:100%;border-collapse:collapse;margin-bottom:14px;}
+  td,th{padding:8px 10px;border-bottom:1px solid #eee;font-size:12px;}th{background:#f5f5f5;font-size:9px;text-transform:uppercase;color:#999;}
+  .tr td{font-weight:700;font-size:14px;border-top:2px solid ${withProfit?'#00D26A':'#FF8A00'};}
+  .pb{background:${withProfit?'#f0fff7':'#fff8f0'};border:2px solid ${withProfit?'#00D26A':'#FF8A00'};border-radius:10px;padding:22px;text-align:center;margin:18px 0;}
+  .pb .lbl{font-size:10px;color:#999;letter-spacing:2px;margin-bottom:4px;text-transform:uppercase;}
+  .pb .amt{font-size:34px;font-weight:900;color:${withProfit?'#00D26A':'#FF8A00'};letter-spacing:2px;}
+  .ft{font-size:9px;color:#bbb;text-align:center;border-top:1px solid #eee;padding-top:12px;margin-top:18px;}</style>
+  </head><body>
+  <div class="hdr"><div><div class="lm">🎬 PRO COST</div><div class="ls">BY FOODA ACADEMY</div><div style="font-size:11px;color:#999;margin-top:3px;">${date}</div></div>
+  <div><div class="badge">${withProfit?'WITH PROFIT':'COSTS ONLY'}</div><div style="font-size:10px;color:#999;margin-top:5px;">${S.mode==='one'?'One Man':'Full Crew'} · Margin: ${S.margin}%</div></div></div>
+  <h2>Project: ${name}</h2>
+  ${gearRows?`<h2>Equipment</h2><table><tr><th>Item</th><th>Ref Price</th><th>Deprec %</th><th>Daily Rate</th></tr>${gearRows}</table>`:''}
+  <h2>Cost Breakdown</h2>
+  <table><tr><td>Equipment</td><td>${fmt(equip)}</td></tr><tr><td>Location/Studio</td><td>${fmt(loc)}</td></tr><tr><td>Transportation</td><td>${fmt(trans)}</td></tr><tr><td>Photographer Fee</td><td>${fmt(day)}</td></tr><tr><td>Video Packages</td><td>${fmt(video)}</td></tr>${S.mode==='full'?`<tr><td>Crew</td><td>${fmt(crew)}</td></tr>`:''}<tr><td>Other</td><td>${fmt(other)}</td></tr><tr><td><strong>Total Costs</strong></td><td><strong>${fmt(total)}</strong></td></tr>${withProfit?`<tr><td>Profit (${S.margin}%)</td><td>${fmt(profit)}</td></tr>`:''}<tr class="tr"><td>${title}</td><td>${fmt(finalPrice)}</td></tr></table>
+  <div class="pb"><div class="lbl">${title}</div><div class="amt">${fmt(finalPrice)}</div></div>
+  <div class="ft">Generated by Pro Cost · Fooda Academy · ${date}</div></body></html>`;
+  const w=window.open('','_blank');w.document.write(html);w.document.close();setTimeout(()=>w.print(),500);
+}
+
+// ─── INIT ────────────────────────────────────────────────
+setCurrency('EGP');
+// Restore saved my gear — NOT auto-selected, user picks per session
+// But restore any that were previously active (stored in localStorage)
+const savedActive=JSON.parse(localStorage.getItem('pc6_gearactive')||'{}');
+S.homeGearActive=savedActive;
+S.myGear.forEach((g,i)=>{
+  if(S.homeGearActive[i]){
+    const key=gk(g.cat,'My Gear',g.brand+' '+g.name);
+    const dr=g.dailyRate??(g.price*g.deprecPct/100);
+    S.selectedGear[key]={refPrice:g.price,deprecPct:g.deprecPct,dailyRate:dr};
+  }
+});
+buildCatGrid();updateHero();buildHomeGearPanel();
+
+// ═══════════════════════════════════════════════════════════
+// INCOME TRACKER
+// ═══════════════════════════════════════════════════════════
+let incomePeriod = 'month';
+
+function setIncomePeriod(p){
+  incomePeriod = p;
+  const mb = document.getElementById('period-month');
+  const yb = document.getElementById('period-year');
+  if(mb){mb.style.background=p==='month'?'#001A0A':'transparent';mb.style.color=p==='month'?'var(--green)':'var(--text3)';}
+  if(yb){yb.style.background=p==='year'?'#001A0A':'transparent';yb.style.color=p==='year'?'var(--green)':'var(--text3)';}
+  renderIncomeScreen();
+}
+
+function getIncomeData(){
+  const hist = S.history.filter(Boolean);
+  const now = new Date();
+  let projects = hist;
+  if(incomePeriod === 'month'){
+    projects = hist.filter(h=>{
+      if(!h.date) return false;
+      try{
+        const d = new Date(h.date);
+        return d.getMonth()===now.getMonth() && d.getFullYear()===now.getFullYear();
+      } catch(e){ return true; }
+    });
+    if(!projects.length) projects = hist; // fallback show all
+  }
+  return projects;
+}
+
+function renderIncomeScreen(){
+  const projects = getIncomeData();
+  const totalRev = projects.reduce((s,h)=>s+(h.price||0),0);
+  const totalCost = projects.reduce((s,h)=>s+(h.cost||Math.round((h.price||0)/1.3)),0);
+  const netProfit = totalRev - totalCost;
+  const marginPct = totalRev>0?Math.round((netProfit/totalRev)*100):0;
+  const avgProfit = projects.length>0?Math.round(netProfit/projects.length):0;
+
+  const sym = CURRENCIES[S.currency].sym;
+  const fmtI = v => {const c=CURRENCIES[S.currency]; const n=Math.round(v).toLocaleString(); return c.pos==='before'?c.sym+n:n+' '+c.sym;};
+
+  const rEl=document.getElementById('inc-revenue');
+  const cEl=document.getElementById('inc-costs');
+  const pEl=document.getElementById('inc-profit');
+  const mEl=document.getElementById('inc-margin-pct');
+  const aEl=document.getElementById('inc-avg');
+  const pcEl=document.getElementById('inc-proj-count');
+  const lEl=document.getElementById('inc-list-label');
+  const tEl=document.getElementById('inc-proj-total');
+
+  if(rEl)rEl.textContent=fmtI(totalRev);
+  if(cEl)cEl.textContent=fmtI(totalCost);
+  if(pEl)pEl.textContent=fmtI(netProfit);
+  if(mEl)mEl.textContent=marginPct+'%';
+  if(aEl)aEl.textContent=(S.lang==='ar'?'متوسط الربح: ':'avg profit: ')+fmtI(avgProfit);
+  if(pcEl)pcEl.textContent=projects.length+(S.lang==='ar'?' مشروع':' projects');
+  if(lEl)lEl.textContent=incomePeriod==='month'?(S.lang==='ar'?'مشاريع هذا الشهر':'PROJECTS THIS MONTH'):(S.lang==='ar'?'جميع المشاريع':'ALL PROJECTS');
+  if(tEl)tEl.textContent=fmtI(totalRev)+' total';
+
+  // Bar chart — group by month
+  renderIncomeBarChart(fmtI);
+
+  // Project list
+  const list = document.getElementById('incomeProjectList');
+  if(!list) return;
+  if(!projects.length){
+    list.innerHTML=`<div class="empty-s"><div class="empty-icon">📊</div><p class="empty-txt">${S.lang==='ar'?'لا توجد مشاريع بعد':'No projects yet — save estimates to track income'}</p></div>`;
+    return;
+  }
+  list.innerHTML = projects.map((h,i)=>{
+    const rev = h.price||0;
+    const cost = h.cost||Math.round(rev/1.3);
+    const profit = rev - cost;
+    const isPos = profit >= 0;
+    const dotColor = isPos ? 'var(--green)' : 'var(--red)';
+    const badgeBg = isPos ? 'rgba(0,210,106,.08)' : 'rgba(255,59,59,.08)';
+    const badgeBorder = isPos ? 'var(--green-dim)' : 'var(--red-dim)';
+    const badgeColor = isPos ? 'var(--green)' : 'var(--red)';
+    return `<div style="background:var(--card);border:0.5px solid ${isPos?'var(--green-dim)':'var(--border)'};border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;margin-bottom:7px;">
+      <div style="width:8px;height:8px;border-radius:50%;background:${dotColor};flex-shrink:0;"></div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${h.name||'Unnamed Project'}</div>
+        <div style="font-size:9px;color:var(--text3);margin-top:1px;">${h.date||''} · ${h.mode==='one'?'One Man':'Full Crew'}</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:13px;font-weight:700;color:var(--green);font-family:var(--fd);">${fmtI(rev)}</div>
+        <div style="font-size:9px;color:var(--red);">cost: ${fmtI(cost)}</div>
+        <div style="background:${badgeBg};border:0.5px solid ${badgeBorder};border-radius:20px;padding:2px 7px;font-size:8px;color:${badgeColor};margin-top:3px;display:inline-block;">${isPos?'+':''}${fmtI(profit)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderIncomeBarChart(fmtI){
+  const chart = document.getElementById('incomeBarChart');
+  if(!chart) return;
+  const hist = S.history.filter(Boolean);
+  // Group by month (last 6 months)
+  const months = [];
+  const now = new Date();
+  for(let i=5;i>=0;i--){
+    const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
+    months.push({
+      label: d.toLocaleString('default',{month:'short'}),
+      month: d.getMonth(),
+      year: d.getFullYear(),
+      rev: 0, cost: 0
+    });
+  }
+  hist.forEach(h=>{
+    try{
+      const d = new Date(h.date);
+      const m = months.find(x=>x.month===d.getMonth()&&x.year===d.getFullYear());
+      if(m){ m.rev+=(h.price||0); m.cost+=(h.cost||Math.round((h.price||0)/1.3)); }
+    }catch(e){}
+  });
+  const maxVal = Math.max(...months.map(m=>m.rev), 1);
+  const H = 60;
+  chart.innerHTML = months.map(m=>{
+    const rh = Math.round((m.rev/maxVal)*H);
+    const ch = Math.round((m.cost/maxVal)*H);
+    const isCurrent = m.month===now.getMonth()&&m.year===now.getFullYear();
+    return `<div style="display:flex;flex-direction:column;flex:1;align-items:center;">
+      <div style="display:flex;align-items:flex-end;gap:2px;height:${H}px;${isCurrent?'background:rgba(0,210,106,.06);border:0.5px solid var(--green-dim);border-radius:4px 4px 0 0;padding:0 2px;':''}">
+        <div style="width:8px;height:${rh||2}px;background:${isCurrent?'var(--green)':'var(--green-dim)'};border-radius:2px 2px 0 0;"></div>
+        <div style="width:8px;height:${ch||2}px;background:var(--red-dim);border-radius:2px 2px 0 0;"></div>
+      </div>
+      <div style="font-size:7px;color:${isCurrent?'var(--green)':'var(--text3)'};margin-top:3px;font-weight:${isCurrent?700:400};">${m.label}</div>
+    </div>`;
+  }).join('');
+}
+
+// Patch saveProject to also save cost
+const _origSave = saveProject;
+// Override buildBreakdown to also tag history entry with cost
+const _origBreakdown = buildBreakdown;
+
+// ── Update showTab to handle income ──
+
+</script>
+</body>
+</html>
